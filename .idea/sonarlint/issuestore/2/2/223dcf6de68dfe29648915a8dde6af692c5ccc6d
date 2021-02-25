@@ -1,0 +1,10 @@
+
+O
+squid:S106,"9Replace this use of System.out or System.err by a logger.(éÖ™
+csquid:CallToDeprecatedMethodR"/Remove this use of "isEmpty"; it is deprecated.( ”üŠÿÿÿÿÿ8øèÏèû.
+^squid:CallToDeprecatedMethod9"/Remove this use of "isEmpty"; it is deprecated.(³ıÔ§8øèÏèû.
+csquid:CallToDeprecatedMethodH"/Remove this use of "isEmpty"; it is deprecated.(ûïÖ¤ıÿÿÿÿ8øèÏèû.
+usquid:S1488&"YImmediately return this expression instead of assigning it to the temporary variable "s".(“­Œøÿÿÿÿ
+csquid:CallToDeprecatedMethod>"/Remove this use of "isEmpty"; it is deprecated.(êà¥ƒøÿÿÿÿ8øèÏèû.
+^squid:CallToDeprecatedMethod,"/Remove this use of "isEmpty"; it is deprecated.(éÖ™8ö õÌû.
+^squid:CallToDeprecatedMethodC"/Remove this use of "isEmpty"; it is deprecated.(äÔú´8øèÏèû.
