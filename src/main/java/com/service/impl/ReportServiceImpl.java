@@ -1,7 +1,13 @@
 package com.service.impl;
 
+import com.entity.JimuReport;
+import com.mapper.JimuReportMapper;
 import com.service.ReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Auther: HuangRui
@@ -10,4 +16,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReportServiceImpl implements ReportService {
+
+    @Resource
+    private JimuReportMapper jimuReportMapper;
+
+    @Override
+    public List<JimuReport> getAllReport() {
+        return jimuReportMapper.selectAll();
+    }
 }
