@@ -1,6 +1,5 @@
 package com;
 
-import org.activiti.spring.boot.SecurityAutoConfiguration;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @MapperScan({"com.mapper"})
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+@SpringBootApplication()
 public class ApiServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(ApiServerApplication.class, args);

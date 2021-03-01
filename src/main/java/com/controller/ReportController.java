@@ -6,9 +6,11 @@ import com.entity.ResultPojo;
 import com.service.ReportService;
 import com.utils.ReportUtils;
 import com.utils.ResultUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,6 +22,7 @@ import java.util.List;
 @RestController
 public class ReportController {
 
+    @Resource
     private ReportService reportService;
 
     @RequestMapping("/getBarData")
