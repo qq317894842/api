@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface JimuReportMapper {
     public List<JimuReport> selectAll();
+
+    public JimuReport getReportById(String id);
 }

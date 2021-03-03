@@ -35,3 +35,5 @@ W
 .src/main/resources/mapper/JimuReportMapper.xml,d\1\d14597523b1a9b3323e9bc611b777f5c8ea3bb74
 R
 "src/main/resources/application.yml,a\6\a6d8b8556fee0e03112ce2bf34b8cb27a7dc9e58
+U
+%src/main/resources/application-db.yml,5\1\51962345a7eaef70e74190049c2dea369fc42849

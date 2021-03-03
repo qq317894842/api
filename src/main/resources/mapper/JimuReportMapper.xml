@@ -10,4 +10,8 @@
 		select * from jimu_report
 	</select>
 
+	<select id="getReportById" parameterType="java.lang.String" resultType="com.entity.JimuReport">
+		select * from jimu_report where id = #{id}
+	</select>
+
 </mapper>

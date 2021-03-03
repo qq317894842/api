@@ -8,4 +8,6 @@ public interface ReportService {
 
     public List<JimuReport> getAllReport();
 
+    public JimuReport getReportById(String id);
+
 }

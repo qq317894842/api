@@ -23,4 +23,9 @@ public class ReportServiceImpl implements ReportService {
     public List<JimuReport> getAllReport() {
         return jimuReportMapper.selectAll();
     }
+
+    @Override
+    public JimuReport getReportById(String id) {
+        return jimuReportMapper.getReportById(id);
+    }
 }
