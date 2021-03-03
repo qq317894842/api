@@ -7,13 +7,11 @@ server:
           max: 1000
           min-spare: 30
     port: 8088
-    servlet:
-      context-path: /api
 spring:
     application:
       name: apitest
     mvc:
-      static-path-pattern: /static/**
+      static-path-pattern: /static/**,/META-INFO/**
     profiles:
         active: db
     jackson:
