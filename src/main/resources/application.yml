@@ -7,6 +7,8 @@ server:
           max: 1000
           min-spare: 30
     port: 8088
+    servlet:
+      context-path: /api
 spring:
     application:
       name: apitest

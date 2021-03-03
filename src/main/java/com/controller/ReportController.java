@@ -6,7 +6,8 @@ import com.entity.ResultPojo;
 import com.service.ReportService;
 import com.utils.ReportUtils;
 import com.utils.ResultUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import java.util.List;
  * @Date: 2021/2/24 11:15
  * @Description:
  */
+@Api(tags = "报表数据接口")
 @RequestMapping("/report")
 @RestController
 public class ReportController {
@@ -34,6 +36,7 @@ public class ReportController {
         return jsonStr;
     }
 
+    @ApiOperation("所有报表数据")
     @CrossOrigin
     @RequestMapping("/getReportData")
     public ResultPojo getReportData(){
@@ -41,6 +44,7 @@ public class ReportController {
         return  ResultUtil.mix(ResultCode.SUCCESS, jimuReports);
     }
 
+    @ApiOperation("根据id获取报表数据")
     @CrossOrigin
     @RequestMapping("/getReportById/{id}")
     public ResultPojo getReportById(@PathVariable("id") String id){
