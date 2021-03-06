@@ -10,8 +10,8 @@ server:
 spring:
     application:
       name: apitest
-    mvc:
-      static-path-pattern: /static/**,/META-INFO/**
+#    mvc:
+#      static-path-pattern: /static/**,/META-INFO/**
     profiles:
         active: db
     jackson:
@@ -29,6 +29,25 @@ spring:
       historyLevel: audit
 #      historyLevel: full
       db-history-used: true
+
+###########swagger2########
+##接口文档
+swagger:
+  ##是否开启
+  enable: true
+  ##扫描包
+  basePackage: com.controller
+  ##标题
+  title: baggage-客户端
+  ##描述
+  desc: 动态API
+  ##版本
+  version: 0.0.1
+  ##联系方式
+  contactName: mrcode
+  contactUrl: mailto:mrcode@126.com
+  contactEmail: mrcode@126.com
+
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   configuration:
