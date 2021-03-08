@@ -2626,7 +2626,7 @@ TENANT_ID_</ColNames>
     </column>
     <column id="573" parent="271" name="AbnormalCode">
       <Position>12</Position>
-      <Comment>行李非正常状态码(.B)  </Comment>
+      <Comment>行李非正常状态码(.B)</Comment>
       <DataType>char(3)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>

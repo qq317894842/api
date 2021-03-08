@@ -17,8 +17,6 @@ b
 2src/main/java/com/controller/ReportController.java,a\7\a7568d1417279df21f20a346024bad3d868f0405
 e
 5src/main/java/com/service/impl/ReportServiceImpl.java,1\6\162596f6251e2739926de15f554a9f7ab949cfcb
-7
-api.iml,e\d\ede67a8bf23bbdcb5af453d4e605f5e0cc25d0ba
 \
 ,src/main/java/com/service/ReportService.java,b\6\b6fb0f741be66a3f9289b72cd19898808789af65
 ^
@@ -39,5 +37,11 @@ U
 %src/main/resources/application-db.yml,5\1\51962345a7eaef70e74190049c2dea369fc42849
 j
 :.idea/dataSources/df35015c-35f5-4dbf-a693-2d0132813d19.xml,a\0\a04de8a65a39ed61b3a5a85d334dddbc1b14a6b7
-[
-+src/main/java/com/config/SwaggerConfig.java,a\9\a98cb1336bc7871ad1dbc937f602b2962e9ac26d
+V
+&src/main/java/com/config/Swagger2.java,8\a\8aabaca7f5c37a7f2ea0928abc5650c665a789c3
+c
+3src/main/java/com/controller/BaggageController.java,6\a\6a2c77914fa324d3f565613fda89d46f2326ac08
+c
+3src/main/java/com/entity/dto/BaggageReportData.java,d\1\d19e1c22291b1132b535925c5b7049b460338f21
+G
+src/test/java/Test.java,e\1\e1c1ce625dc608dd00fa9f0917d7630dbd9d8b0c
