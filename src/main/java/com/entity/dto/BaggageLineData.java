@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel("折线图数据")
-public class BaggageReportData {
+public class BaggageLineData {
     private int count;
     private String time;
     private String type;

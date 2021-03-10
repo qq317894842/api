@@ -51,3 +51,5 @@ H
 src/test/java/Test2.java,9\4\945b92d05bc1d5de753e191472149927a59a131d
 U
 %src/main/java/com/entity/Baggage.java,d\f\df9f1850f116c62bbc1cc88c24cfef50be593628
+]
+-src/main/java/com/service/BaggageService.java,5\8\583e00cbb31c13ab4057ac23acc852b96fdc13cb

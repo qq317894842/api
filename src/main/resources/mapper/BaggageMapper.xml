@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.BaggageMapper">
+
+
+	<sql id="Base_Column_List">
+	</sql>
+
+	<select id="countByAirLine" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
+		<if test="type==0">
+			SELECT  count(bg.id) count,al.CompanyCode type,
+		  	<if test="granularity==1">year(bg.FlightDate) time</if>
+			<if test="granularity==2">month(bg.FlightDate) time</if>
+			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==0">bg.FlightDate time</if>
+			from baggage bg LEFT JOIN  airline al on bg.FlightNo = al.NO
+			where bg.FlightDate between #{beginTime} and #{endTime}
+			GROUP BY al.CompanyCode, time;
+		</if>
+		<if test="type==1">
+			SELECT count(bg.id) count,al.DepartureTerminal type,
+			<if test="granularity==1">year(bg.FlightDate) time</if>
+			<if test="granularity==2">month(bg.FlightDate) time</if>
+			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==0">bg.FlightDate time</if>
+			from baggage bg LEFT JOIN  airline al on bg.FlightNo = al.NO
+			where bg.FlightDate between #{beginTime} and #{endTime}
+			GROUP BY al.DepartureTerminal,time;
+		</if>
+	</select>
+
+</mapper>
