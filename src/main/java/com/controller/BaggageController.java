@@ -4,6 +4,7 @@ import com.constant.ResultCode;
 import com.entity.JimuReport;
 import com.entity.ResultPojo;
 import com.entity.dto.BaggageLineData;
+import com.entity.dto.DrillParam;
 import com.entity.dto.QueryParam;
 import com.service.BaggageService;
 import com.utils.ResultUtil;
@@ -20,7 +21,7 @@ import java.util.List;
  * @Description:
  */
 @Api(tags = "行李数据报表接口")
-@RequestMapping("/bagReport")
+@RequestMapping("/api/bagReport")
 @RestController
 public class BaggageController {
 
@@ -33,17 +34,41 @@ public class BaggageController {
     public ResultPojo countByAirLine(@RequestBody QueryParam param){
 
         List<BaggageLineData> dataList = baggageService.countByAirLine(param);
-//        JimuReport jimuReport = baggageService.getReportById(id);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
     @ApiOperation("跟踪点视角")
     @CrossOrigin
-    @PostMapping("/getDataByAirLine")
-    public ResultPojo countByAirLine2(@RequestBody QueryParam param){
+    @PostMapping("/getDataByTrace")
+    public ResultPojo getDataByTrace(@RequestBody QueryParam param){
 
-        List<BaggageLineData> dataList = baggageService.countByAirLine(param);
-//        JimuReport jimuReport = baggageService.getReportById(id);
+        List<BaggageLineData> dataList = baggageService.countByTrace(param);
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("资源视角")
+    @CrossOrigin
+    @PostMapping("/getDataByResource")
+    public ResultPojo getDataByResource(@RequestBody QueryParam param){
+
+        List<BaggageLineData> dataList = baggageService.countByResource(param);
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("行李视角")
+    @CrossOrigin
+    @PostMapping("/getDataByBaggage")
+    public ResultPojo getDataByBaggage(@RequestBody QueryParam param){
+
+        List<BaggageLineData> dataList = baggageService.countByBaggage(param);
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("数据钻取")
+    @CrossOrigin
+    @PostMapping("/drillData")
+    public ResultPojo drillData(@RequestBody DrillParam param){
+        List<BaggageLineData> dataList = baggageService.drillData(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 }

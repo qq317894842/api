@@ -1,7 +1,7 @@
 
-O
-squid:S106"9Replace this use of System.out or System.err by a logger.(щ·Ыу
+rsquid:CallToDeprecatedMethod"CRemove this use of "FastJsonpResponseBodyAdvice"; it is deprecated.(Пьнд8·ш╧ш√.
+T
+squid:S106"9Replace this use of System.out or System.err by a logger.(П Й╩·    
+=squid:S1481"&Remove this unused "a" local variable.(Пьнд
 T
 squid:S106"9Replace this use of System.out or System.err by a logger.(к┘┌╧¤    
-=squid:S1481"&Remove this unused "a" local variable.(Пьнд
-rsquid:CallToDeprecatedMethod"CRemove this use of "FastJsonpResponseBodyAdvice"; it is deprecated.(Пьнд8·ш╧ш√.

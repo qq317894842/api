@@ -12,6 +12,7 @@
 		  	<if test="granularity==1">year(bg.FlightDate) time</if>
 			<if test="granularity==2">month(bg.FlightDate) time</if>
 			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
 			<if test="granularity==0">bg.FlightDate time</if>
 			from baggage bg LEFT JOIN  airline al on bg.FlightNo = al.NO
 			where bg.FlightDate between #{beginTime} and #{endTime}
@@ -22,11 +23,110 @@
 			<if test="granularity==1">year(bg.FlightDate) time</if>
 			<if test="granularity==2">month(bg.FlightDate) time</if>
 			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
 			<if test="granularity==0">bg.FlightDate time</if>
 			from baggage bg LEFT JOIN  airline al on bg.FlightNo = al.NO
 			where bg.FlightDate between #{beginTime} and #{endTime}
 			GROUP BY al.DepartureTerminal,time;
 		</if>
+	</select>
+	
+	<select id="countByTrace" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
+		SELECT count(bt.BaggageID) as count, btf.NodeName as type,btf.airport,btf.Terminal,
+		<if test="granularity==1">year(bt.OperateTime) time</if>
+		<if test="granularity==2">month(bt.OperateTime) time</if>
+		<if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
+		<if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%H点') time</if>
+		<if test="granularity==0">bt.OperateTime time</if>
+
+		from baggagetrace bt LEFT JOIN baggagetraceconfig btf
+		on bt.BaggageTraceConfigID=btf.id
+		where bt.OperateTime between #{beginTime} and #{endTime}
+		and btf.id IN
+		<foreach item="item" index="index" collection="traceList" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		GROUP BY btf.NodeName,time
+	</select>
+
+
+	<select id="countByResource" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
+		<if test="type==0">
+			SELECT count(bt.BaggageID) as count, bt.OperatorID as type,btf.airport,btf.Terminal,
+			<if test="granularity==1">year(bt.OperateTime) time</if>
+			<if test="granularity==2">month(bt.OperateTime) time</if>
+			<if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%H点') time</if>
+			<if test="granularity==0">bt.OperateTime time</if>
+			from baggagetrace bt LEFT JOIN baggagetraceconfig btf
+			on bt.BaggageTraceConfigID=btf.id
+			where bt.OperateTime between #{beginTime} and #{endTime}
+			GROUP BY type,time
+		</if>
+		<if test="type==1">
+			SELECT count(bt.BaggageID) as count, r.id as type,btf.airport,btf.Terminal,
+			<if test="granularity==1">year(bt.OperateTime) time</if>
+			<if test="granularity==2">month(bt.OperateTime) time</if>
+			<if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%H点') time</if>
+			<if test="granularity==0">bt.OperateTime time</if>
+			from baggagetrace bt LEFT JOIN baggagetraceconfig btf
+			on bt.BaggageTraceConfigID=btf.id
+			LEFT JOIN  resource r
+			on r.BaggageTraceConfigID=btf.id
+			where bt.OperateTime between #{beginTime} and #{endTime}
+			GROUP BY type,time
+		</if>
+	</select>
+
+	<select id="countByBaggage" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
+		<if test="type==0">
+			SELECT count(1) count,a.BaggageStatus type,
+			<if test="granularity==1">year(a.OperateTime) time</if>
+			<if test="granularity==2">month(a.OperateTime) time</if>
+			<if test="granularity==3">DATE_FORMAT(a.OperateTime,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(a.OperateTime,'%H点') time</if>
+			<if test="granularity==0">a.OperateTime time</if>
+		   	from (
+				SELECT max(id),bt.BaggageStatus,bt.BaggageId,bt.OperateTime from baggagetrace bt
+				where bt.OperateTime BETWEEN
+				#{beginTime} and #{endTime}
+				GROUP BY bt.BaggageId
+			) a
+			GROUP BY  a.BaggageStatus,time
+		</if>
+
+		<if test="type==1">
+			select count(bg.ID) as count,bg.PassengerLevel type,
+			<if test="granularity==1">year(bg.FlightDate) time</if>
+			<if test="granularity==2">month(bg.FlightDate) time</if>
+			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
+			<if test="granularity==0">a.OperateTime time</if>
+			from baggage bg
+			where bg.FlightDate BETWEEN
+			#{beginTime} and #{endTime}
+			GROUP BY type,time
+		</if>
+	</select>
+
+	<select id="drillData" parameterType="com.entity.dto.DrillParam" resultType="com.entity.dto.BaggageLineData">
+		select count(bg.ID) as count,bg.FlightNo type,
+		<if test="granularity==1">year(bg.FlightDate) time</if>
+		<if test="granularity==2">month(bg.FlightDate) time</if>
+		<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+		<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
+		<if test="granularity==0">bg.FlightDate time</if>
+		from baggage bg
+		where bg.FlightDate between #{beginTime} and #{endTime}
+		LEFT JOIN airline al on al.No = bg.FlightNo
+		where 1=1
+		<if test="companyCode!=null and companyCode!=''"> and al.CompanyCode = #{companyCode}</if>
+		<if test="teminal!=null and teminal!=''">
+		      and al.DepartureTerminal = #{teminal}
+			  or al.LandingTerminal = #{teminal}
+		</if>
+		GROUP BY type,time;
 	</select>
 
 </mapper>

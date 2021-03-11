@@ -6,7 +6,7 @@ server:
         threads:
           max: 1000
           min-spare: 30
-    port: 8088
+    port: 8096
 spring:
     application:
       name: apitest

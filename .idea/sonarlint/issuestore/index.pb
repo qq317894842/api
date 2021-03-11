@@ -41,8 +41,6 @@ V
 &src/main/java/com/config/Swagger2.java,8\a\8aabaca7f5c37a7f2ea0928abc5650c665a789c3
 c
 3src/main/java/com/controller/BaggageController.java,6\a\6a2c77914fa324d3f565613fda89d46f2326ac08
-c
-3src/main/java/com/entity/dto/BaggageReportData.java,d\1\d19e1c22291b1132b535925c5b7049b460338f21
 G
 src/test/java/Test.java,e\1\e1c1ce625dc608dd00fa9f0917d7630dbd9d8b0c
 ’
@@ -53,3 +51,13 @@ U
 %src/main/java/com/entity/Baggage.java,d\f\df9f1850f116c62bbc1cc88c24cfef50be593628
 ]
 -src/main/java/com/service/BaggageService.java,5\8\583e00cbb31c13ab4057ac23acc852b96fdc13cb
+a
+1src/main/java/com/entity/dto/BaggageLineData.java,f\5\f5901c40242115b26620a3d7937d57fb4e6b715e
+\
+,src/main/java/com/entity/dto/QueryParam.java,d\9\d9118f67041f4487539caf7f2ae935d9551a5bf1
+[
++src/main/java/com/mapper/BaggageMapper.java,7\2\7256aabde1b71309d3108ee3a5049a26b94b29fd
+f
+6src/main/java/com/service/impl/BaggageServiceImpl.java,7\0\7047c0f6d5891e2bdff91f05ddeff920d5ed867d
+[
++src/main/resources/mapper/BaggageMapper.xml,d\2\d29a008b0f4300ff279222642d9f9bba385df369

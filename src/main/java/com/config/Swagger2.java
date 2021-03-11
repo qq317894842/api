@@ -26,8 +26,8 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("服务:发布为docker镜像,权限管理，用户管理，页面管理，日志 后台 APIs")
-                .description("服务:发布为docker镜像,权限管理，用户管理，页面管理，日志 后台")
+                .title("服务:发布为数据统计，报表模块APIs")
+                .description("服务:发布为数据统计，报表模块")
                 .version("1.0")
                 .build();
     }

@@ -1,6 +1,7 @@
 package com.mapper;
 
 import com.entity.dto.BaggageLineData;
+import com.entity.dto.DrillParam;
 import com.entity.dto.QueryParam;
 
 import java.util.List;
@@ -19,4 +20,11 @@ public interface BaggageMapper {
      */
     public List<BaggageLineData> countByAirLine(QueryParam type);
 
+    public List<BaggageLineData> countByTrace(QueryParam type);
+
+    List<BaggageLineData> countByResource(QueryParam param);
+
+    List<BaggageLineData> countByBaggage(QueryParam param);
+
+    List<BaggageLineData> drillData(DrillParam param);
 }
