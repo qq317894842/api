@@ -21,10 +21,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResultPojo<T> {
-    @ApiModelProperty("状态码")
-    private String code;
+//    @ApiModelProperty("状态码")
+//    private String code;
     @ApiModelProperty("状态描述")
-    private String msg;
+    private String message;
+
+    private boolean success;
+
+    private String tick;
+
     @ApiModelProperty("响应数据")
     private T data;
     @Override

@@ -21,7 +21,7 @@ import java.util.List;
  * @Description:
  */
 @Api(tags = "行李数据报表接口")
-@RequestMapping("/api/bagReport")
+@RequestMapping("/bagReport")
 @RestController
 public class BaggageController {
 
@@ -71,4 +71,11 @@ public class BaggageController {
         List<BaggageLineData> dataList = baggageService.drillData(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
+
+//    {
+//    "success": false,
+//    "message": "ok",
+//    "data": null,
+//    "tick": 637496882585314540
+//    }
 }

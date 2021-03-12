@@ -61,3 +61,5 @@ f
 6src/main/java/com/service/impl/BaggageServiceImpl.java,7\0\7047c0f6d5891e2bdff91f05ddeff920d5ed867d
 [
 +src/main/resources/mapper/BaggageMapper.xml,d\2\d29a008b0f4300ff279222642d9f9bba385df369
+\
+,src/main/java/com/entity/dto/DrillParam.java,9\e\9ea5ea7a3b00fb33c06892490d7e4a3d9107ccda

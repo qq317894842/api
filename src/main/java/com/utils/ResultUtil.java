@@ -13,25 +13,25 @@ import com.entity.ResultPojo;
 public class ResultUtil<T> {
 
     public static ResultPojo mix(ResultCode state, Object data) {
-        return ResultPojo.builder()
-                .code(state.getCode())
-                .msg(state.getMsg())
+        return ResultPojo.builder().success(true)
+//                .code(state.getCode())
+                .message(state.getMsg())
                 .data(data)
                 .build();
     }
 
     public ResultPojo reData(ResultCode state, T data) {
-        return ResultPojo.builder()
-                .code(state.getCode())
-                .msg(state.getMsg())
+        return ResultPojo.builder().success(true)
+//                .code(state.getCode())
+                .message(state.getMsg())
                 .data(data)
                 .build();
     }
 
     public static ResultPojo mix(ResultCode state) {
-        return ResultPojo.builder()
-                .code(state.getCode())
-                .msg(state.getMsg())
+        return ResultPojo.builder().success(true)
+//                .code(state.getCode())
+                .message(state.getMsg())
                 .build();
     }
 }

@@ -81,32 +81,28 @@
 
 	<select id="countByBaggage" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
 		<if test="type==0">
-			SELECT count(1) count,a.BaggageStatus type,
-			<if test="granularity==1">year(a.OperateTime) time</if>
-			<if test="granularity==2">month(a.OperateTime) time</if>
-			<if test="granularity==3">DATE_FORMAT(a.OperateTime,'%Y年第%u周') time</if>
-			<if test="granularity==4">DATE_FORMAT(a.OperateTime,'%H点') time</if>
-			<if test="granularity==0">a.OperateTime time</if>
-		   	from (
-				SELECT max(id),bt.BaggageStatus,bt.BaggageId,bt.OperateTime from baggagetrace bt
-				where bt.OperateTime BETWEEN
-				#{beginTime} and #{endTime}
-				GROUP BY bt.BaggageId
-			) a
-			GROUP BY  a.BaggageStatus,time
-		</if>
-
-		<if test="type==1">
-			select count(bg.ID) as count,bg.PassengerLevel type,
+			SELECT count(bg.id) count,bg.SpecialBaggageType type ,
 			<if test="granularity==1">year(bg.FlightDate) time</if>
 			<if test="granularity==2">month(bg.FlightDate) time</if>
 			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
 			<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
-			<if test="granularity==0">a.OperateTime time</if>
-			from baggage bg
-			where bg.FlightDate BETWEEN
-			#{beginTime} and #{endTime}
-			GROUP BY type,time
+			<if test="granularity==0">bg.FlightDate time</if>
+			from
+			baggage bg
+			where bg.FlightDate between #{beginTime} and #{endTime}
+			GROUP BY  type,time
+		</if>
+		<if test="type==1">
+			SELECT count(bg.id) count,bg.AbnormalCode type ,
+			<if test="granularity==1">year(bg.FlightDate) time</if>
+			<if test="granularity==2">month(bg.FlightDate) time</if>
+			<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+			<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%H点') time</if>
+			<if test="granularity==0">bg.FlightDate time</if>
+			from
+			baggage bg
+			where bg.FlightDate between #{beginTime} and #{endTime}
+			GROUP BY  type,time
 		</if>
 	</select>
 
