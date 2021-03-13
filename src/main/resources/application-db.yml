@@ -4,4 +4,10 @@ spring:
     username: user01
     password: 123456
     url: jdbc:mysql://39.108.5.84:3306/jeecg-boot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#spring:
+#  datasource:
+#    username: sndev
+#    password: V$d3F6KZ_@5
+#    url: jdbc:mysql://rm-bp1k480j48325576ogo.mysql.rds.aliyuncs.com:35166/baggagetrack?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+#    driver-class-name: com.mysql.cj.jdbc.Driver
