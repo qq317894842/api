@@ -22,7 +22,7 @@ import java.util.List;
 @NoArgsConstructor
 @ApiModel("查询参数")
 public class QueryParam {
-    @ApiModelProperty("查询维度 航班视角(0：航司，1：航站楼) 资源视角(0:操作员，1：设备) 行李视角:(0:行李 1：旅客)")
+    @ApiModelProperty("查询维度 航班视角(0：航司，1：航站楼) 资源视角(0:操作员，1：设备) 行李视角:(0:行李类别 1：行李状态)")
     private String type;
     @ApiModelProperty("开始时间")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
