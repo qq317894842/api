@@ -17,6 +17,8 @@ public interface BaggageService {
 
     List<BaggageLineData> drillData(DrillParam param);
 
+
+
     List<BaggageLineData> countErrByAirLine(QueryParam param);
 
     List<BaggageLineData> countErrByTrace(QueryParam param);
@@ -26,5 +28,17 @@ public interface BaggageService {
     List<BaggageLineData> countErrByBaggage(QueryParam param);
 
     List<BaggageLineData> drillErrData(DrillParam param);
+
+
+
+    List<BaggageLineData> countEffByAirLine(QueryParam param);
+
+    List<BaggageLineData> countEffByTrace(QueryParam param);
+
+    List<BaggageLineData> countEffByResource(QueryParam param);
+
+    List<BaggageLineData> countEffByBaggage(QueryParam param);
+
+    List<BaggageLineData> drillEffData(DrillParam param);
 
 }

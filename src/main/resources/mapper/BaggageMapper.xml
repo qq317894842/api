@@ -8,15 +8,15 @@
 
     <select id="countByAirLine" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
         <if test="type==0">
-            SELECT count(bg.id) count,al.CompanyCode type,
+            SELECT count(bg.id) count,left(bg.FlightNo,2) type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
             <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
-            from baggage bg LEFT JOIN airline al on bg.FlightNo = al.NO
+            from baggage bg
             where bg.FlightDate between #{beginTime} and #{endTime}
-            GROUP BY al.CompanyCode, time;
+            GROUP BY type,time;
         </if>
         <if test="type==1">
             SELECT count(bg.id) count,al.DepartureTerminal type,
@@ -128,19 +128,19 @@
 
     <select id="countErrByAirLine" resultType="com.entity.dto.BaggageLineData">
         <if test="type==0">
-            SELECT count(bg.id) count,al.CompanyCode type,
+            SELECT count(bg.id) count,left(bg.FlightNo,2) type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
             <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
-            from baggage bg LEFT JOIN airline al on bg.FlightNo = al.NO
+            from baggage bg
             where bg.FlightDate between #{beginTime} and #{endTime} and
             (
             bg.AbnormalCode!=''
             and bg.AbnormalCode!=null
             )
-            GROUP BY al.CompanyCode, time;
+            GROUP BY type, time;
         </if>
         <if test="type==1">
             SELECT count(bg.id) count,al.DepartureTerminal type,
@@ -169,7 +169,7 @@
         left join baggagetrace B on B.BaggageID=A.ID
         where
         (A.AbnormalCode!=''
-        and A.AbnormalCode!=null)
+        and A.AbnormalCode is not null)
         and A.FlightDate between #{beginTime} and #{endTime}
         group by B.CurrnetPlaceID,A.FlightDate
         order by A.FlightDate;
@@ -210,17 +210,17 @@
         </if>
     </select>
     <select id="countErrByBaggage" resultType="com.entity.dto.BaggageLineData">
-        select A.SpecialBaggageType type,count(1) value,
+        select A.SpecialBaggageType type,count(A.id) value,
         <if test="granularity==1">year(A.FlightDate time) time</if>
         <if test="granularity==2">month(A.FlightDate time)+'月份' time</if>
         <if test="granularity==3">DATE_FORMAT(A.FlightDate time,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(A.FlightDate time,'%Y-%m-%d %H点') time</if>
+        <if test="granularity==0">A.FlightDate time</if>
         from baggage A
         where (A.AbnormalCode!=''
-        and A.AbnormalCode!=null)
+        and A.AbnormalCode is not null)
         and A.FlightDate between #{beginTime} and #{endTime}
         group by A.SpecialBaggageType,A.FlightDate
-        order by A.FlightDate;
     </select>
     <select id="drillErrData" resultType="com.entity.dto.BaggageLineData">
         select count(bg.ID) as count,bg.FlightNo type,
@@ -233,13 +233,54 @@
         LEFT JOIN airline al on al.No = bg.FlightNo
         where bg.FlightDate between #{beginTime} and #{endTime}
         and (A.AbnormalCode!=''
-        and A.AbnormalCode!=null)
+        and A.AbnormalCode is not null)
         <if test="companyCode!=null and companyCode!=''">and al.CompanyCode = #{companyCode}</if>
         <if test="teminal!=null and teminal!=''">
             and al.DepartureTerminal = #{teminal}
             or al.LandingTerminal = #{teminal}
         </if>
         GROUP BY bg.FlightNo,time;
+    </select>
+
+    <select id="countEffByAirLine" resultType="com.entity.dto.BaggageLineData">
+        <if test="type==0">
+            SELECT count(bg.id) count,left(bg.FlightNo,2) type,
+            <if test="granularity==1">year(bg.FlightDate) time</if>
+            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+            <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
+            <if test="granularity==0">bg.FlightDate time</if>
+            from baggage bg
+            where bg.FlightDate between #{beginTime} and #{endTime}
+            GROUP BY type, time;
+        </if>
+        <if test="type==1">
+            SELECT count(bg.id) count,al.DepartureTerminal type,
+            <if test="granularity==1">year(bg.FlightDate) time</if>
+            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
+            <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
+            <if test="granularity==0">bg.FlightDate time</if>
+            from baggage bg LEFT JOIN airline al on bg.FlightNo = al.NO
+            where bg.FlightDate between #{beginTime} and #{endTime}
+            GROUP BY al.DepartureTerminal,time;
+        </if>
+    </select>
+
+    <select id="countEffByTrace" resultType="com.entity.dto.BaggageLineData">
+
+    </select>
+
+    <select id="countEffByResource" resultType="com.entity.dto.BaggageLineData">
+
+    </select>
+
+    <select id="countEffByBaggage" resultType="com.entity.dto.BaggageLineData">
+
+    </select>
+
+    <select id="drillEffData" resultType="com.entity.dto.BaggageLineData">
+
     </select>
 
 </mapper>

@@ -36,6 +36,15 @@ public interface BaggageMapper {
 
     List<BaggageLineData> countErrByBaggage(QueryParam param);
 
-
     List<BaggageLineData> drillErrData(DrillParam param);
+
+    List<BaggageLineData> countEffByTrace(QueryParam param);
+
+    List<BaggageLineData> countEffByResource(QueryParam param);
+
+    List<BaggageLineData> countEffByBaggage(QueryParam param);
+
+    List<BaggageLineData> drillEffData(DrillParam param);
+
+    List<BaggageLineData> countEffByAirLine(QueryParam param);
 }
