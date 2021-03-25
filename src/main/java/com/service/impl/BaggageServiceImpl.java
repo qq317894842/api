@@ -71,28 +71,4 @@ public class BaggageServiceImpl implements BaggageService {
         return baggageMapper.drillErrData(param);
     }
 
-    @Override
-    public List<BaggageLineData> countEffByAirLine(QueryParam param) {
-        return baggageMapper.countEffByAirLine(param);
-    }
-
-    @Override
-    public List<BaggageLineData> countEffByTrace(QueryParam param) {
-        return baggageMapper.countEffByTrace(param);
-    }
-
-    @Override
-    public List<BaggageLineData> countEffByResource(QueryParam param) {
-        return baggageMapper.countEffByResource(param);
-    }
-
-    @Override
-    public List<BaggageLineData> countEffByBaggage(QueryParam param) {
-        return baggageMapper.countEffByBaggage(param);
-    }
-
-    @Override
-    public List<BaggageLineData> drillEffData(DrillParam param) {
-        return baggageMapper.drillEffData(param);
-    }
 }

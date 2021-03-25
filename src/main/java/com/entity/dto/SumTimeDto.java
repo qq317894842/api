@@ -8,16 +8,15 @@ import lombok.NoArgsConstructor;
 
 /**
  * @Auther: HuangRui
- * @Date: 2021/3/6 16:24
+ * @Date: 2021/3/24 10:46
  * @Description:
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("折线图数据")
-public class BaggageLineData {
-    private Double count;
-    private String time;
+@ApiModel("行李按维度操作时间之和")
+public class SumTimeDto {
+    private int sum;
     private String type;
 }

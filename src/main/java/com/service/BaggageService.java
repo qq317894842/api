@@ -31,14 +31,6 @@ public interface BaggageService {
 
 
 
-    List<BaggageLineData> countEffByAirLine(QueryParam param);
 
-    List<BaggageLineData> countEffByTrace(QueryParam param);
-
-    List<BaggageLineData> countEffByResource(QueryParam param);
-
-    List<BaggageLineData> countEffByBaggage(QueryParam param);
-
-    List<BaggageLineData> drillEffData(DrillParam param);
 
 }

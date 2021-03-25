@@ -2,16 +2,15 @@ package com.controller;
 
 import com.constant.ResultCode;
 import com.entity.ResultPojo;
-import com.entity.dto.BaggageLineData;
-import com.entity.dto.DrillParam;
-import com.entity.dto.QueryParam;
-import com.service.BaggageService;
+import com.entity.dto.*;
+import com.service.BaggageEffService;
 import com.utils.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,14 +23,13 @@ import java.util.List;
 @RestController
 public class EfficientController {
     @Resource
-    private BaggageService baggageService;
+    private BaggageEffService baggageEffService;
 
     @ApiOperation("航班视角")
     @CrossOrigin
     @PostMapping("/getDataByAirLine")
     public ResultPojo countByAirLine(@RequestBody QueryParam param){
-
-        List<BaggageLineData> dataList = baggageService.countEffByAirLine(param);
+        List<BaggageLineData> dataList = baggageEffService.countEffByAirLine(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
@@ -40,7 +38,7 @@ public class EfficientController {
     @PostMapping("/getDataByTrace")
     public ResultPojo getDataByTrace(@RequestBody QueryParam param){
 
-        List<BaggageLineData> dataList = baggageService.countEffByTrace(param);
+        List<BaggageLineData> dataList = baggageEffService.countEffByTrace(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
@@ -49,7 +47,7 @@ public class EfficientController {
     @PostMapping("/getDataByResource")
     public ResultPojo getDataByResource(@RequestBody QueryParam param){
 
-        List<BaggageLineData> dataList = baggageService.countEffByResource(param);
+        List<BaggageLineData> dataList = baggageEffService.countEffByResource(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
@@ -58,7 +56,7 @@ public class EfficientController {
     @PostMapping("/getDataByBaggage")
     public ResultPojo getDataByBaggage(@RequestBody QueryParam param){
 
-        List<BaggageLineData> dataList = baggageService.countEffByBaggage(param);
+        List<BaggageLineData> dataList = baggageEffService.countEffByBaggage(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
@@ -66,7 +64,7 @@ public class EfficientController {
     @CrossOrigin
     @PostMapping("/drillData")
     public ResultPojo drillData(@RequestBody DrillParam param){
-        List<BaggageLineData> dataList = baggageService.drillEffData(param);
+        List<BaggageLineData> dataList = baggageEffService.drillEffData(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 }

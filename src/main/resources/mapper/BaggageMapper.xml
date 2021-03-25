@@ -242,45 +242,79 @@
         GROUP BY bg.FlightNo,time;
     </select>
 
-    <select id="countEffByAirLine" resultType="com.entity.dto.BaggageLineData">
-        <if test="type==0">
-            SELECT count(bg.id) count,left(bg.FlightNo,2) type,
-            <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
-            <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
-            <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
-            <if test="granularity==0">bg.FlightDate time</if>
-            from baggage bg
-            where bg.FlightDate between #{beginTime} and #{endTime}
-            GROUP BY type, time;
-        </if>
-        <if test="type==1">
-            SELECT count(bg.id) count,al.DepartureTerminal type,
-            <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
-            <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
-            <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
-            <if test="granularity==0">bg.FlightDate time</if>
-            from baggage bg LEFT JOIN airline al on bg.FlightNo = al.NO
-            where bg.FlightDate between #{beginTime} and #{endTime}
-            GROUP BY al.DepartureTerminal,time;
-        </if>
-    </select>
+    <!--<select id="countEffByAirLine" resultType="com.entity.dto.BaggageLineData">-->
+        <!--<if test="type==0">-->
+            <!--SELECT count(bg.id) count,left(bg.FlightNo,2) type,-->
+            <!--<if test="granularity==1">year(bg.FlightDate) time</if>-->
+            <!--<if test="granularity==2">month(bg.FlightDate)+'月份' time</if>-->
+            <!--<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>-->
+            <!--<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>-->
+            <!--<if test="granularity==0">bg.FlightDate time</if>-->
+            <!--from baggage bg-->
+            <!--where bg.FlightDate between #{beginTime} and #{endTime}-->
+            <!--GROUP BY type, time;-->
+        <!--</if>-->
+        <!--<if test="type==1">-->
+            <!--SELECT count(bg.id) count,al.DepartureTerminal type,-->
+            <!--<if test="granularity==1">year(bg.FlightDate) time</if>-->
+            <!--<if test="granularity==2">month(bg.FlightDate)+'月份' time</if>-->
+            <!--<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>-->
+            <!--<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>-->
+            <!--<if test="granularity==0">bg.FlightDate time</if>-->
+            <!--from baggage bg LEFT JOIN airline al on bg.FlightNo = al.NO-->
+            <!--where bg.FlightDate between #{beginTime} and #{endTime}-->
+            <!--GROUP BY al.DepartureTerminal,time;-->
+        <!--</if>-->
+    <!--</select>-->
 
-    <select id="countEffByTrace" resultType="com.entity.dto.BaggageLineData">
-
-    </select>
-
-    <select id="countEffByResource" resultType="com.entity.dto.BaggageLineData">
-
-    </select>
-
-    <select id="countEffByBaggage" resultType="com.entity.dto.BaggageLineData">
-
-    </select>
 
     <select id="drillEffData" resultType="com.entity.dto.BaggageLineData">
 
+    </select>
+    <select id="sumTimeByAirLine" resultType="com.entity.dto.SumTimeDto">
+        <if test="type==0">
+            SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,left(bg.FlightNo,2) type
+            FROM baggagetrace  bgt  LEFT JOIN baggage bg ON bg.Id = bgt.BaggageID
+            WHERE bgt.BeginTime BETWEEN  #{beginTime} and #{endTime}
+            GROUP BY type
+        </if>
+        <if test="type==1">
+            SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,bgt.OperateTeminal type
+            FROM baggagetrace  bgt  LEFT JOIN baggage bg ON bg.Id = bgt.BaggageID
+            WHERE bgt.OperateTime BETWEEN #{beginTime} and #{endTime}
+            GROUP BY type
+        </if>
+    </select>
+    <select id="sumTimeByTrace" resultType="com.entity.dto.SumTimeDto">
+        SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,btf.NodeName type from baggagetrace bgt
+        left JOIN  baggagetraceconfig btf
+        ON bgt.BaggageTraceConfigID = btf.ID
+        GROUP BY type
+    </select>
+    <!--0:操作员  1:设备-->
+    <select id="sumTimeByResource" resultType="com.entity.dto.SumTimeDto">
+        <if test="type==0">
+            SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,bgt.OperatorID type
+            from baggagetrace bgt
+            WHERE bgt.BeginTime BETWEEN #{beginTime} and #{endTime}
+            GROUP BY type
+        </if>
+        <if test="type==1">
+            SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,re.`No` type
+            from baggagetrace bgt LEFT JOIN baggagetraceconfig btf
+            on bgt.BaggageTraceConfigID=btf.id
+            LEFT JOIN resource re
+            on re.BaggageTraceConfigID=btf.id
+            WHERE bgt.BeginTime BETWEEN #{beginTime} and #{endTime}
+            GROUP BY re.`No`
+        </if>
+    </select>
+    <select id="sumTimeByBaggage" resultType="com.entity.dto.SumTimeDto">
+        SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,bg.SpecialBaggageType type
+        from baggagetrace bgt LEFT JOIN baggage bg
+        on bgt.BaggageID = bg.ID
+        WHERE bgt.BeginTime BETWEEN #{beginTime} and #{endTime}
+        GROUP BY type
     </select>
 
 </mapper>

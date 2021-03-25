@@ -3,6 +3,7 @@ package com.mapper;
 import com.entity.dto.BaggageLineData;
 import com.entity.dto.DrillParam;
 import com.entity.dto.QueryParam;
+import com.entity.dto.SumTimeDto;
 
 import java.util.List;
 
@@ -38,13 +39,22 @@ public interface BaggageMapper {
 
     List<BaggageLineData> drillErrData(DrillParam param);
 
-    List<BaggageLineData> countEffByTrace(QueryParam param);
-
-    List<BaggageLineData> countEffByResource(QueryParam param);
-
-    List<BaggageLineData> countEffByBaggage(QueryParam param);
+//    List<BaggageLineData> countEffByTrace(QueryParam param);
+//
+//    List<BaggageLineData> countEffByResource(QueryParam param);
+//
+//    List<BaggageLineData> countEffByBaggage(QueryParam param);
 
     List<BaggageLineData> drillEffData(DrillParam param);
 
-    List<BaggageLineData> countEffByAirLine(QueryParam param);
+//    List<BaggageLineData> countEffByAirLine(QueryParam param);
+
+
+    List<SumTimeDto> sumTimeByAirLine(QueryParam param);
+
+    List<SumTimeDto> sumTimeByTrace(QueryParam param);
+
+    List<SumTimeDto> sumTimeByResource(QueryParam param);
+
+    List<SumTimeDto> sumTimeByBaggage(QueryParam param);
 }

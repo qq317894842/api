@@ -67,3 +67,13 @@ H
 src/test/java/Test3.java,6\d\6de55d536d9dc3ba3630abbf3bd0de4c372b0025
 h
 8src/main/java/com/controller/ErrorBaggageController.java,4\7\474cfd2d35ac95fae83abce4a8a6e7dc721910e3
+e
+5src/main/java/com/controller/EfficientController.java,b\2\b250a2ae05d5f19e64fec950a08d17883ae16495
+b
+2src/main/java/com/entity/dto/ReportDoubleData.java,7\7\7710168d48367bc9dba822cad6aaf654296711c6
+`
+0src/main/java/com/service/BaggageEffService.java,e\8\e83a0abe16192c07cc81ca85d63ba4ae5c94047b
+\
+,src/main/java/com/entity/dto/SumTimeDto.java,5\b\5b83bcfbf879be4ada88ec781621b51ea7b7f892
+i
+9src/main/java/com/service/impl/BaggageEffServiceImpl.java,2\4\24d5f57a4e15931a95d9a965a55a8a5c8fe17f5e
