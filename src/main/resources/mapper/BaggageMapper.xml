@@ -10,7 +10,7 @@
         <if test="type==0">
             SELECT count(bg.id) count,left(bg.FlightNo,2) type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -21,7 +21,7 @@
         <if test="type==1">
             SELECT count(bg.id) count,al.DepartureTerminal type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -34,7 +34,7 @@
     <select id="countByTrace" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
         SELECT count(bt.BaggageID) as count, btf.NodeName as type,
         <if test="granularity==1">year(bt.OperateTime) time</if>
-        <if test="granularity==2">month(bt.OperateTime)+'月份' time</if>
+        <if test="granularity==2">DATE_FORMAT(bt.OperateTime,'%Y年%m月' time</if>
         <if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">bt.OperateTime time</if>
@@ -54,7 +54,7 @@
         <if test="type==0">
             SELECT count(bt.BaggageID) as count, bt.OperatorID as type,
             <if test="granularity==1">year(bt.OperateTime) time</if>
-            <if test="granularity==2">month(bt.OperateTime)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bt.OperateTime,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bt.OperateTime time</if>
@@ -66,7 +66,7 @@
         <if test="type==1">
             SELECT count(bt.BaggageID) as count, r.id as type,
             <if test="granularity==1">year(bt.OperateTime) time</if>
-            <if test="granularity==2">month(bt.OperateTime)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bt.OperateTime,'%Y年%m月') +'月份' time</if>
             <if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bt.OperateTime time</if>
@@ -83,7 +83,7 @@
         <if test="type==0">
             SELECT count(bg.id) count,bg.SpecialBaggageType type ,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -95,7 +95,7 @@
         <if test="type==1">
             SELECT count(bg.id) count,bg.AbnormalCode type ,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -109,7 +109,7 @@
     <select id="drillData" parameterType="com.entity.dto.DrillParam" resultType="com.entity.dto.BaggageLineData">
         select count(bg.ID) as count,bg.FlightNo type,
         <if test="granularity==1">year(bg.FlightDate) time</if>
-        <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+        <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">bg.FlightDate time</if>
@@ -130,7 +130,7 @@
         <if test="type==0">
             SELECT count(bg.id) count,left(bg.FlightNo,2) type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -145,7 +145,7 @@
         <if test="type==1">
             SELECT count(bg.id) count,al.DepartureTerminal type,
             <if test="granularity==1">year(bg.FlightDate) time</if>
-            <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bg.FlightDate time</if>
@@ -161,7 +161,7 @@
     <select id="countErrByTrace" resultType="com.entity.dto.BaggageLineData">
         select B.CurrnetPlaceID type,count(*) value,
         <if test="granularity==1">year(A.FlightDate time) time</if>
-        <if test="granularity==2">month(A.FlightDate time)+'月份' time</if>
+        <if test="granularity==2">DATE_FORMAT(A.FlightDate,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(A.FlightDate time,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(A.FlightDate time,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">A.FlightDate time</if>
@@ -179,7 +179,7 @@
         <if test="type==0">
             SELECT count(bt.BaggageID) as count, bt.OperatorID as type,
             <if test="granularity==1">year(bt.OperateTime) time</if>
-            <if test="granularity==2">month(bt.OperateTime)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bt.OperateTime,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bt.OperateTime time</if>
@@ -194,7 +194,7 @@
         <if test="type==1">
             SELECT count(bt.BaggageID) as count, r.id as type,
             <if test="granularity==1">year(bt.OperateTime) time</if>
-            <if test="granularity==2">month(bt.OperateTime)+'月份' time</if>
+            <if test="granularity==2">DATE_FORMAT(bt.OperateTime,'%Y年%m月') time</if>
             <if test="granularity==3">DATE_FORMAT(bt.OperateTime,'%Y年第%u周') time</if>
             <if test="granularity==4">DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H点') time</if>
             <if test="granularity==0">bt.OperateTime time</if>
@@ -212,7 +212,7 @@
     <select id="countErrByBaggage" resultType="com.entity.dto.BaggageLineData">
         select A.SpecialBaggageType type,count(A.id) value,
         <if test="granularity==1">year(A.FlightDate time) time</if>
-        <if test="granularity==2">month(A.FlightDate time)+'月份' time</if>
+        <if test="granularity==2">DATE_FORMAT(A.FlightDate,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(A.FlightDate time,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(A.FlightDate time,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">A.FlightDate time</if>
@@ -225,7 +225,7 @@
     <select id="drillErrData" resultType="com.entity.dto.BaggageLineData">
         select count(bg.ID) as count,bg.FlightNo type,
         <if test="granularity==1">year(bg.FlightDate) time</if>
-        <if test="granularity==2">month(bg.FlightDate)+'月份' time</if>
+        <if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">bg.FlightDate time</if>
@@ -246,7 +246,7 @@
         <!--<if test="type==0">-->
             <!--SELECT count(bg.id) count,left(bg.FlightNo,2) type,-->
             <!--<if test="granularity==1">year(bg.FlightDate) time</if>-->
-            <!--<if test="granularity==2">month(bg.FlightDate)+'月份' time</if>-->
+            <!--<if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>-->
             <!--<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>-->
             <!--<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>-->
             <!--<if test="granularity==0">bg.FlightDate time</if>-->
@@ -257,7 +257,7 @@
         <!--<if test="type==1">-->
             <!--SELECT count(bg.id) count,al.DepartureTerminal type,-->
             <!--<if test="granularity==1">year(bg.FlightDate) time</if>-->
-            <!--<if test="granularity==2">month(bg.FlightDate)+'月份' time</if>-->
+            <!--<if test="granularity==2">DATE_FORMAT(bg.FlightDate,'%Y年%m月') time</if>-->
             <!--<if test="granularity==3">DATE_FORMAT(bg.FlightDate,'%Y年第%u周') time</if>-->
             <!--<if test="granularity==4">DATE_FORMAT(bg.FlightDate,'%Y-%m-%d %H点') time</if>-->
             <!--<if test="granularity==0">bg.FlightDate time</if>-->
