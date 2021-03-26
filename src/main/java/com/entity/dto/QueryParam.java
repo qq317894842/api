@@ -34,5 +34,7 @@ public class QueryParam {
     private int granularity;
     @ApiModelProperty("跟踪节点 1-12 ")
     private List<Integer> traceList;
+    @ApiModelProperty("航站楼 0:离港  1:进港")
+    private int terminal;
 
 }
