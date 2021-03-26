@@ -42,6 +42,19 @@
         <if test="granularity==0">DATE_FORMAT(bt.CreatedTime,'%Y-%m-%d') time</if>
     </sql>
 
+    <sql id="terminalType">
+        <if test="terminal==0">al.DepartureTerminal type,</if>
+        <if test="terminal==1">al.LandingTerminal type,</if>
+    </sql>
+    <sql id="terminalJoin">
+        <if test="terminal==0">
+            from baggage bg LEFT JOIN  (selEct COUNT(1),NO,DepartureTerminal from airline al GROUP BY NO,DepartureTerminal) al on bg.FlightNo = al.NO
+        </if>
+        <if test="terminal==1">
+            from baggage bg LEFT JOIN  (selEct COUNT(1),NO,LandingTerminal from airline al GROUP BY NO,LandingTerminal) al on bg.FlightNo = al.NO
+        </if>
+    </sql>
+
     <select id="countByAirLine" parameterType="com.entity.dto.QueryParam" resultType="com.entity.dto.BaggageLineData">
         <if test="type==0">
             SELECT count(bg.id) count,left(bg.FlightNo,2) type,
@@ -52,10 +65,9 @@
         </if>
         <if test="type==1">
             SELECT count(bg.id) count,
-                   <if test="terminal==0">al.DepartureTerminal type,</if>
-                   <if test="terminal==1">al.LandingTerminal type,</if>
+            <include refid="terminalType" />
             <include refid="bgFlightDate"/>
-            from baggage bg LEFT JOIN  (selEct COUNT(1),NO,DepartureTerminal from airline al GROUP BY NO,DepartureTerminal) al on bg.FlightNo = al.NO
+            <include refid="terminalJoin" />
             where bg.FlightDate between #{beginTime} and #{endTime}
             GROUP BY type,time;
         </if>
@@ -144,9 +156,10 @@
             GROUP BY type, time;
         </if>
         <if test="type==1">
-            SELECT count(bg.id) count,al.DepartureTerminal type,
+            SELECT count(bg.id) count,
+            <include refid="terminalType" />
             <include refid="bgFlightDate"/>
-            from baggage bg LEFT JOIN  (selEct COUNT(1),NO,DepartureTerminal from airline al GROUP BY NO,DepartureTerminal) al on bg.FlightNo = al.NO
+            <include refid="terminalJoin" />
             where bg.FlightDate between #{beginTime} and #{endTime} and
             (
             bg.AbnormalCode!=''
@@ -317,11 +330,12 @@
             GROUP BY type,time;
         </if>
         <if test="type==1">
-            SELECT count(bg.id) count,al.DepartureTerminal type,
+            SELECT count(bg.id) count,
+            <include refid="terminalType" />
             <include refid="bgCreateTime"/>
-            from baggage bg LEFT JOIN  (selEct COUNT(1),NO,DepartureTerminal from airline al GROUP BY NO,DepartureTerminal) al on bg.FlightNo = al.NO
+            <include refid="terminalJoin" />
             where bg.CreatedTime between #{beginTime} and #{endTime}
-            GROUP BY al.DepartureTerminal,time;
+            GROUP BY type,time;
         </if>
     </select>
 
