@@ -36,4 +36,9 @@ public class BaggageExServiceImpl implements BaggageExService {
     public List<BaggageLineData> countExByBaggage(QueryParam param) {
         return baggageMapper.countExByBaggage(param);
     }
+
+    @Override
+    public List<BaggageLineData> countExBySource(QueryParam param) {
+        return baggageMapper.countExBySource(param);
+    }
 }

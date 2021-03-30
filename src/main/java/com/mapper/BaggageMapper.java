@@ -44,6 +44,8 @@ public interface BaggageMapper {
     List<BaggageLineData> countExByTrace(QueryParam param);
 
     List<BaggageLineData> countExByBaggage(QueryParam param);
+
+    List<BaggageLineData> countExBySource(QueryParam param);
 //
 //    List<BaggageLineData> countEffByBaggage(QueryParam param);
 

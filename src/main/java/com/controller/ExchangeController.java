@@ -63,6 +63,15 @@ public class ExchangeController {
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
+    @ApiOperation("来源统计")
+    @CrossOrigin
+    @PostMapping("/getDataBySource")
+    public ResultPojo countBySource(@RequestBody QueryParam param){
+
+        List<BaggageLineData> dataList = baggageExService.countExBySource(param);
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
 //    @ApiOperation("数据钻取")
 //    @CrossOrigin
 //    @PostMapping("/drillData")

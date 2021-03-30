@@ -15,6 +15,8 @@ public interface BaggageExService {
 //    List<BaggageLineData> countExByResource(QueryParam param);
 //
     List<BaggageLineData> countExByBaggage(QueryParam param);
+
+    List<BaggageLineData> countExBySource(QueryParam param);
 //
 //    List<BaggageLineData> drillExData(DrillParam param);
 }

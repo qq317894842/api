@@ -42,6 +42,7 @@
         <if test="granularity==0">DATE_FORMAT(bt.CreatedTime,'%Y-%m-%d') time</if>
     </sql>
 
+
     <sql id="terminalType">
         <if test="terminal==0">al.DepartureTerminal type,</if>
         <if test="terminal==1">al.LandingTerminal type,</if>
@@ -392,8 +393,14 @@
             GROUP BY bg.AbnormalCode,time
         </if>
     </select>
-
-
+    <select id="countExBySource" resultType="com.entity.dto.BaggageLineData">
+        SELECT count(1) count,orp.SourceFrom type,
+        <include refid="orpCreateTime" />
+        from outerrespone  orp
+        WHERE orp.CreateTime
+        BETWEEN  #{beginTime} and #{endTime}
+        group by type,time
+    </select>
 
 
 </mapper>
