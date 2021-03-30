@@ -28,14 +28,14 @@
     </sql>
 
     <sql id="bgCreateTime">
-        <if test="granularity==1">year(bg.CreateTime) time</if>
+        <if test="granularity==1">year(bg.CreatedTime) time</if>
         <if test="granularity==2">DATE_FORMAT(bg.CreatedTime,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(bg.CreatedTime,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(bg.CreatedTime,'%Y-%m-%d %H点') time</if>
         <if test="granularity==0">DATE_FORMAT(bg.CreatedTime,'%Y-%m-%d') time</if>
     </sql>
     <sql id="btCreateTime">
-        <if test="granularity==1">year(bt.CreateTime) time</if>
+        <if test="granularity==1">year(bt.CreatedTime) time</if>
         <if test="granularity==2">DATE_FORMAT(bt.CreatedTime,'%Y年%m月') time</if>
         <if test="granularity==3">DATE_FORMAT(bt.CreatedTime,'%Y年第%u周') time</if>
         <if test="granularity==4">DATE_FORMAT(bt.CreatedTime,'%Y-%m-%d %H点') time</if>
