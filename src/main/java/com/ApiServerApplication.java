@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @Date: 2021/2/19 14:57
  * @Description:
  */
-@MapperScan({"com.mapper"})
 @SpringBootApplication(scanBasePackages = {"com.*"})
 public class ApiServerApplication {
     public static void main(String[] args) {

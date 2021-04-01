@@ -4,6 +4,7 @@ import com.entity.dto.BaggageLineData;
 import com.entity.dto.DrillParam;
 import com.entity.dto.QueryParam;
 import com.entity.dto.SumTimeDto;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @Date: 2021/3/10 11:28
  * @Description:
  */
+@Mapper
 public interface BaggageMapper {
 
     /**
