@@ -12,6 +12,7 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,21 +39,38 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
 
             QueryParam param = QueryParam.builder().beginTime(beginDateTime).endTime(endDateTime)
                     .type("0").granularity(0).build();
-            List<BaggageLineData> dataList = mapper.countByAirLine(param);
-            for (int i = 0; i <dataList.size() ; i++) {
-                BaggageLineData lineData = dataList.get(i);
-                if(lineData==null){
-                    continue;
-                }
-                int id = taskMapper.addRecord(lineData, DementionType.COMPANY.code(),DementionType.COMPANY.value());
-                System.out.println("add success id:"+id);
-            }
+            List<BaggageLineData> dataList = new ArrayList<>();
+            //航司
+            dataList = mapper.countByAirLine(param);
+            addMapperRecord(dataList, DementionType.COMPANY.code());
+            //航站楼-离港
+            param.setType("1");
+            param.setTerminal(0);
+            dataList = mapper.countByAirLine(param);
+            addMapperRecord(dataList,DementionType.D_TERMINAL.code());
+            //航站楼-进港
+            param.setType("1");
+            param.setTerminal(1);
+            dataList = mapper.countByAirLine(param);
+            addMapperRecord(dataList,DementionType.A_TERMINAL.code());
+            //
             beginDate = beginDate.plusDays(1);
+        }
+    }
+
+    private void addMapperRecord(List<BaggageLineData> dataList,Integer code) {
+        for (int i = 0; i <dataList.size() ; i++) {
+            BaggageLineData lineData = dataList.get(i);
+            if(lineData==null){
+                continue;
+            }
+            taskMapper.addRecord(lineData,code);
         }
     }
 
     @Override
     public void everyDayRun() {
-
+        LocalDate  yesterday =  LocalDate.now().plusDays(-1);
+        this.init(yesterday,yesterday);
     }
 }

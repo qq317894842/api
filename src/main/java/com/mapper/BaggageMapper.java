@@ -5,6 +5,7 @@ import com.entity.dto.DrillParam;
 import com.entity.dto.QueryParam;
 import com.entity.dto.SumTimeDto;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @Description:
  */
 @Mapper
+@Component(value = "baggageMapper")
 public interface BaggageMapper {
 
     /**

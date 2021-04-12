@@ -1,5 +1,8 @@
 package com.shedule;
 
+import com.service.ScheduleTaskService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -15,14 +18,18 @@ import java.time.format.DateTimeFormatterBuilder;
  */
 @EnableScheduling
 @Component
+@Slf4j
 public class ScheduleTask {
 
+    @Autowired
+    private ScheduleTaskService scheduleTaskService;
 
-    @Scheduled(cron="0/10 * * * * ? ")   //每10秒执行一次
+    @Scheduled(cron="* * */2 * * ? ")   //每10秒执行一次
     public void writeDBforReport(){
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         String format = LocalDateTime.now().format(f);
-        System.out.println(format);
+        scheduleTaskService.everyDayRun();
+        log.info(format);
     }
 
 }

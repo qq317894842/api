@@ -3,6 +3,7 @@ package com.mapper;
 import com.entity.dto.BaggageLineData;
 import com.entity.dto.QueryParam;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
 @Mapper
 public interface BaggageTaskMapper {
 
-    public int addRecord(BaggageLineData lineData,Integer dementionId,String dementionName);
+    public int addRecord(@Param(value = "data") BaggageLineData lineData,@Param(value = "dementionId")  Integer dementionId);
 
 }

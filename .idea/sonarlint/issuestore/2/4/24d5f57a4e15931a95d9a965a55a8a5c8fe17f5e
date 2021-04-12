@@ -1,7 +1,7 @@
 
-squid:S1488"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8…˜Åœ†/
 squid:S1488."^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8½Ğ††/
-squid:S1488%"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8…˜Åœ†/
-bsquid:UselessImportCheck"7Remove this unused import 'com.service.BaggageService'.(‹®«Ò8ÿå»œ†/
 Rsquid:S1066E"/Merge this if statement with the enclosing one.(èÍ¤ûÿÿÿÿ8«ú•Á†/
+bsquid:UselessImportCheck"7Remove this unused import 'com.service.BaggageService'.(‹®«Ò8ÿå»œ†/
+squid:S1488%"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8…˜Åœ†/
+squid:S1488"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8…˜Åœ†/
 squid:S14886"^Immediately return this expression instead of assigning it to the temporary variable "result".(Ö¦Úˆüÿÿÿÿ8ì‰†/

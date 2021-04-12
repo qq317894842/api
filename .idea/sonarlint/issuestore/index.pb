@@ -89,3 +89,13 @@ b
 2src/main/java/com/service/ScheduleTaskService.java,b\3\b3d73dac17d2aab5e927eafffb8c8ecfe8a91dcb
 k
 ;src/main/java/com/service/impl/ScheduleTaskServiceImpl.java,6\2\6221169ae0c10a3ba0a0bf376747d9adaf5ed09b
+]
+-src/main/java/com/constant/DementionType.java,3\1\315355685d1f388a966f623e1bd63366a6dd2b0e
+_
+/src/main/java/com/mapper/BaggageTaskMapper.java,5\3\536cf3f74e3239a32220feaa15ec17d654bb7eb9
+_
+/src/main/resources/mapper/BaggageTaskMapper.xml,8\f\8fc698ef6d82007fff26b62440ea2c46f707e3d7
+M
+src/test/java/SpringTest.java,8\b\8be9d7785d9f143781df5996d216899ff8d28df0
+a
+1src/main/java/com/utils/ProducerAnalysisData.java,8\2\82307cc8700cb7b3cc868b65e3e2dd777c998b8e

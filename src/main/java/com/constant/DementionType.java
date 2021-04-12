@@ -6,7 +6,9 @@ public enum DementionType {
     COMPANY(1, "航司"),
     /**
      */
-    TERMINAL(2, "航站楼"),
+    D_TERMINAL(20, "航站楼-离港"),
+
+    A_TERMINAL(21, "航站楼-进港"),
 
     /**
      */
