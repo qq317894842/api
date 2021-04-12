@@ -58,7 +58,6 @@ public class ExchangeController {
     @CrossOrigin
     @PostMapping("/getDataByBaggage")
     public ResultPojo getDataByBaggage(@RequestBody QueryParam param){
-
         List<BaggageLineData> dataList = baggageExService.countExByBaggage(param);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }

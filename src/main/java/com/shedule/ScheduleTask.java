@@ -24,12 +24,12 @@ public class ScheduleTask {
     @Autowired
     private ScheduleTaskService scheduleTaskService;
 
-    @Scheduled(cron="* * */2 * * ? ")   //每10秒执行一次
+    @Scheduled(cron="* * 2 * * ? ")   //每天两点
     public void writeDBforReport(){
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
         String format = LocalDateTime.now().format(f);
         scheduleTaskService.everyDayRun();
-        log.info(format);
+        log.info("scheduleTask:" + format);
     }
 
 }
