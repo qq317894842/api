@@ -1,0 +1,26 @@
+
+?squid:S1148\"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+gsquid:CommentedOutCodeLineU"<This block of commented-out lines of code should be removed.(—Ûóäûÿÿÿÿ
+bsquid:CommentedOutCodeLineR"<This block of commented-out lines of code should be removed.(£«Ë¡
+csquid:CommentedOutCodeLine‹"<This block of commented-out lines of code should be removed.(£«Ë¡
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(—Ûóäûÿÿÿÿ
+4squid:S2119p"Save and re-use this "Random".(¼ÝÅf
+@squid:S1148—"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+hsquid:S2095$"LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(ÞêˆŽÿÿÿÿÿ
+@squid:S1148è"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+5squid:S2119Ÿ"Save and re-use this "Random".(¼ÝÅf
+csquid:CommentedOutCodeLine¸"<This block of commented-out lines of code should be removed.(£«Ë¡
+5squid:S2119Ê"Save and re-use this "Random".(¼ÝÅf
+@squid:S2885Î"#Make "format" an instance variable.(ˆ•›úøÿÿÿÿ
+hsquid:CommentedOutCodeLine¼"<This block of commented-out lines of code should be removed.(—Ûóäûÿÿÿÿ
+usquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(‚‰¿üúÿÿÿÿ
+psquid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ˆÑ–Õ
+asquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(‚Âä
+@squid:S1148Ä"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ
+isquid:S3776o"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(úÂ“
+4squid:S21197"Save and re-use this "Random".(¼ÝÅf
+gsquid:CommentedOutCodeLine#"<This block of commented-out lines of code should be removed.(‡Š×åøÿÿÿÿ
+nsquid:CommentedOutCodeLine!"<This block of commented-out lines of code should be removed.(À§×Óüÿÿÿÿ8ÏÙ­Š/
+usquid:S1149q"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(ÄÍœ
+
+vsquid:S1149ž"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(ÄÍœ

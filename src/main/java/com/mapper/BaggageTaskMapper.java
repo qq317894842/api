@@ -15,6 +15,8 @@ import java.util.List;
 @Mapper
 public interface BaggageTaskMapper {
 
-    public int addRecord(@Param(value = "data") BaggageLineData lineData,@Param(value = "dementionId")  Integer dementionId);
+    int addRecord(@Param(value = "data") BaggageLineData lineData,@Param(value = "dementionId")  Integer dementionId);
+
+    void createNewTable(@Param(value = "tableName")String tableName,@Param(value = "comment")String comment);
 
 }

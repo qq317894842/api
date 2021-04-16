@@ -170,7 +170,7 @@
         </if>
     </select>
     <select id="countErrByTrace" resultType="com.entity.dto.BaggageLineData">
-        select B.CurrnetPlaceID type,count(*) value,
+        select B.CurrentPlaceID type,count(1) value,
         <include refid="bgFlightDate"/>
         from baggage bg
         left join baggagetrace B on B.BaggageID=bg.ID
@@ -178,7 +178,7 @@
         (bg.AbnormalCode!=''
         and bg.AbnormalCode is not null)
         and bg.FlightDate between #{beginTime} and #{endTime}
-        group by B.CurrnetPlaceID,bg.FlightDate
+        group by B.CurrentPlaceID,bg.FlightDate
         order by bg.FlightDate;
     </select>
     <!--0:操作员  1:设备-->
@@ -390,13 +390,14 @@
             from
             baggage bg
             where bg.CreatedTime between #{beginTime} and #{endTime}
-            GROUP BY bg.AbnormalCode,time
+            GROUP BY bg.AbnormalCode,timeACT_RE_DEPLOYMENT
         </if>
     </select>
     <select id="countExBySource" resultType="com.entity.dto.BaggageLineData">
-        SELECT count(1) count,orp.SourceFrom type,
+        SELECT count(1) count,cc.IsUpload type,
         <include refid="orpCreateTime" />
         from outerrespone  orp
+        LEFT JOIN collectconfig cc on orp.OuterRequestConfigID = cc.ID
         WHERE orp.CreateTime
         BETWEEN  #{beginTime} and #{endTime}
         group by type,time

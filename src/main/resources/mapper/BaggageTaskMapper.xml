@@ -2,9 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mapper.BaggageTaskMapper">
 
-    <insert id="addRecord" useGeneratedKeys="true" >
-        insert into report_demention_count(count,demention_id,demention_name,count_date)
-        values (#{data.count},#{dementionId},#{data.type},#{data.time})
+    <insert id="addRecord" useGeneratedKeys="true">
+        insert into report_demention_count(count, demention_id, demention_name, count_date)
+        values (#{data.count}, #{dementionId}, #{data.type}, #{data.time})
     </insert>
+
+    <update id="createNewTable" parameterType="java.lang.String">
+        CREATE TABLE  ${tableName}
+        (
+            `id`             bigint(20) NOT NULL AUTO_INCREMENT,
+            `count`          bigint(20) DEFAULT NULL COMMENT '统计数量',
+            `demention_name` varchar(50) DEFAULT NULL COMMENT '名称',
+            `count_date`     date         DEFAULT NULL COMMENT '统计时间',
+            `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间',
+            PRIMARY KEY (`id`),
+            KEY              `count_date_index` (`count_date`) USING BTREE
+        ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
+    </update>
 
 </mapper>

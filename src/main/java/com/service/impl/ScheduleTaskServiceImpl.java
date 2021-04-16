@@ -41,19 +41,32 @@ public class ScheduleTaskServiceImpl implements ScheduleTaskService {
                     .type("0").granularity(0).build();
             List<BaggageLineData> dataList = new ArrayList<>();
             //航司
-            dataList = mapper.countByAirLine(param);
-            addMapperRecord(dataList, DementionType.COMPANY.code());
-            //航站楼-离港
+//            dataList = mapper.countByAirLine(param);
+//            addMapperRecord(dataList, DementionType.COMPANY.code());
+//            //航站楼-离港
+//            param.setType("1");
+//            param.setTerminal(0);
+//            dataList = mapper.countByAirLine(param);
+//            addMapperRecord(dataList,DementionType.D_TERMINAL.code());
+//            //航站楼-进港
+//            param.setType("1");
+//            param.setTerminal(1);
+//            dataList = mapper.countByAirLine(param);
+//            addMapperRecord(dataList,DementionType.A_TERMINAL.code());
+            //操作员-行李
+            param.setType("0");
+            dataList = mapper.countByResource(param);
+            addMapperRecord(dataList,DementionType.OPERATOR.code());
+            //操作员-设备
             param.setType("1");
-            param.setTerminal(0);
-            dataList = mapper.countByAirLine(param);
-            addMapperRecord(dataList,DementionType.D_TERMINAL.code());
-            //航站楼-进港
-            param.setType("1");
-            param.setTerminal(1);
-            dataList = mapper.countByAirLine(param);
-            addMapperRecord(dataList,DementionType.A_TERMINAL.code());
-            //
+            dataList = mapper.countByResource(param);
+            addMapperRecord(dataList,DementionType.RESOURCE.code());
+            beginDate = beginDate.plusDays(1);
+
+            //操作员-行李类型
+            param.setType("0");
+            dataList = mapper.countByBaggage(param);
+            addMapperRecord(dataList,DementionType.BAGGAGETYPE.code());
             beginDate = beginDate.plusDays(1);
         }
     }
