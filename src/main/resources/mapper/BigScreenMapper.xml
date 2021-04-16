@@ -4,7 +4,12 @@
 
 
     <select id="countByAirPort" resultType="com.entity.dto.BaggageLineData">
-
-
+        SELECT count(1) count,bg.SourceAirport  type,
+        <include refid="com.mapper.BaggageMapper.bgFlightDate" />
+        from baggage bg
+        where bg.SourceAirport in (
+            SELECT  al.DepartureAirport airport from airline al  GROUP BY airport
+        )
+        GROUP BY type,time
     </select>
 </mapper>
