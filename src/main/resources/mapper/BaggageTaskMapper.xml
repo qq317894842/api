@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mapper.BaggageTaskMapper">
 
+    <resultMap id="BaseResultMap" type="com.entity.dto.BaggageLineData">
+        <result column="countType" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+
     <insert id="addRecord" useGeneratedKeys="true">
         insert into report_demention_count(count, demention_id, demention_name, count_date)
         values (#{data.count}, #{dementionId}, #{data.type}, #{data.time})
@@ -19,5 +24,15 @@
             KEY              `count_date_index` (`count_date`) USING BTREE
         ) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
     </update>
+
+    <select id="countByAirPortOut" resultType="com.entity.dto.BaggageLineData">
+        SELECT count(1) count,bg.SourceAirport  countType,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m-%d') time
+        from baggage bg  INNER  JOIN airline al
+        on bg.FlightNo = al.No AND al.DepartureAirport = bg.SourceAirport
+        GROUP BY countType,time
+    </select>
+
+
 
 </mapper>

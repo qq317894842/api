@@ -2,14 +2,104 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mapper.BigScreenMapper">
 
+    <resultMap id="BaseResultMap" type="com.entity.dto.BaggageLineData">
+        <result column="countType" jdbcType="VARCHAR" property="type" />
+    </resultMap>
 
-    <select id="countByAirPort" resultType="com.entity.dto.BaggageLineData">
-        SELECT count(1) count,bg.SourceAirport  type,
-        <include refid="com.mapper.BaggageMapper.bgFlightDate" />
-        from baggage bg
-        where bg.SourceAirport in (
-            SELECT  al.DepartureAirport airport from airline al  GROUP BY airport
-        )
-        GROUP BY type,time
+    <resultMap id="companyResultMap" type="com.entity.dto.CompanyLineData">
+        <result column="countType" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+    <resultMap id="airPortResultMap" type="com.entity.dto.AirPortLineData">
+        <result column="countType" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+    <select id="countByCompany" resultMap="BaseResultMap">
+        SELECT count(DISTINCT bg.TagID) count,left(bg.FlightNo,2) countType,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,time
+    </select>
+    <select id="countBySourceId" resultMap="companyResultMap">
+        SELECT count(DISTINCT bg.TagID) count,bg.SourceID countType,left(bg.FlightNo,2) company,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,time,company
+    </select>
+    <select id="countByAireLineType" resultMap="companyResultMap">
+        SELECT count(DISTINCT bg.TagID) count,al.Type countType,left(bg.FlightNo,2) company,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg  INNER JOIN  airline al
+        ON bg.FlightNo = al.`No`
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,time,company
+    </select>
+    <select id="countByBaggageType" resultMap="companyResultMap">
+        SELECT count(DISTINCT bg.TagID) count,bg.SpecialBaggageType countType,left(bg.FlightNo,2) company,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,time,company
+    </select>
+
+    <select id="countTopFiveAirPort" resultMap="BaseResultMap">
+        SELECT count(DISTINCT bg.TagID) count,bg.SourceAirport countType,
+               DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1 AND SourceAirport IN
+        <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
+            #{airport}
+        </foreach>
+            AND
+            bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,time
+    </select>
+    <select id="countTopFiveBaggageType" resultMap="airPortResultMap">
+        SELECT count(DISTINCT bg.TagID) count,bg.SpecialBaggageType countType,bg.SourceAirport airport,DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1 AND SourceAirport IN
+        <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
+            #{airport}
+        </foreach>
+            AND
+            bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1
+        GROUP BY countType,airport,time
+    </select>
+    <select id="countByPeak" resultMap="BaseResultMap">
+        SELECT count(DISTINCT bt.TagID) count,
+               bt.BaggageTraceConfigID countType,
+               DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H:%i') time
+        FROM baggagetrace bt
+        WHERE bt.BaggageTraceConfigID IN
+            (SELECT ID from baggagetraceconfig btc where btc.NodeName = '安检')
+            AND
+            bt.OperateTime
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+        GROUP BY countType,time
+    </select>
+    <select id="getTopFiveAirPort" resultType="java.lang.String">
+        SELECT temp.airport FROM(
+            SELECT count(DISTINCT bg.TagID) count,bg.SourceAirport airport
+            from baggage  bg  GROUP BY airport
+        ) temp
+        ORDER BY temp.count  desc LIMIT 5
     </select>
 </mapper>

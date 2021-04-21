@@ -99,3 +99,19 @@ M
 src/test/java/SpringTest.java,8\b\8be9d7785d9f143781df5996d216899ff8d28df0
 a
 1src/main/java/com/utils/ProducerAnalysisData.java,8\2\82307cc8700cb7b3cc868b65e3e2dd777c998b8e
+^
+.src/main/java/com/constant/CountTableType.java,f\8\f82222887ca86703804a4446cc478a8a8201f526
+]
+-src/main/java/com/mapper/BigScreenMapper.java,9\5\95d6c0ebfbc4308ed195455cc8a6765800553c34
+]
+-src/main/resources/mapper/BigScreenMapper.xml,3\9\39ea8772de00c992439e1494694dfd354c4939af
+h
+8src/main/java/com/service/impl/BigScreenServiceImpl.java,1\5\1581e3057f6408bdbb0db354b1eba9f41a86de5b
+_
+/src/main/java/com/service/BigScreenService.java,f\8\f8ecba72eca62c1f34d819a54caac04bed05efff
+a
+1src/main/java/com/entity/dto/AirPortLineData.java,5\c\5c444c3b3b5ba5a6a675cf790e09afa825804c98
+a
+1src/main/java/com/entity/dto/CompanyLineData.java,b\9\b97a87b3626612691ff6c7007f27b6646e89c95a
+e
+5src/main/java/com/controller/BigScreenController.java,c\d\cd83616c0d54db3dc21fba6dcb236ba7dd410a16

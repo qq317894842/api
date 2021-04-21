@@ -1,3 +1,3 @@
 
-fsquid:UselessImportCheck"6Remove this unused import 'com.entity.dto.QueryParam'.(ÉÑî³øÿÿÿÿ8‹ğÃäˆ/
-[squid:UselessImportCheck"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8‹ğÃäˆ/
+fsquid:UselessImportCheck"6Remove this unused import 'com.entity.dto.QueryParam'.(ÉÑî³øÿÿÿÿ8şÕ—ë/
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(—†®î8î‹®ô/

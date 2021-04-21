@@ -17,6 +17,10 @@ public interface BaggageTaskMapper {
 
     int addRecord(@Param(value = "data") BaggageLineData lineData,@Param(value = "dementionId")  Integer dementionId);
 
+//    int addDementionRecord(@Param(value = "data") BaggageLineData lineData,@Param(value = "dementionId")  Integer dementionId);
+
     void createNewTable(@Param(value = "tableName")String tableName,@Param(value = "comment")String comment);
+
+    List<BaggageLineData> countByAirPortOut();
 
 }

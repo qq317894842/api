@@ -17,7 +17,6 @@ import java.time.LocalDate;
  * @Date: 2021/4/1 17:27
  * @Description:
  */
-@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ApiServerApplication.class})
 public class SpringTest {
@@ -46,12 +45,14 @@ public class SpringTest {
 //进港 离港 / 国际 国内
 //行李分类(超重，超规..)
 //异常行李
-    @Ignore
     @Test
     public void testCreateTable() {
+//        CountTableType[] enums = new CountTableType[]
+//                {CountTableType.AIRPORT_OUTIN, CountTableType.AIRPORT_TERMINAL, CountTableType.AIRPORT_AIRELINETYPE, CountTableType.AIRPORT_BAGTYPE, CountTableType.AIRPORT_ERRBAG,
+//                        CountTableType.COMPANY_OUTIN, CountTableType.COMPANY_AIRELINETYPE, CountTableType.COMPANY_BAGTYPE, CountTableType.COMPANY_ERRBAG};
         CountTableType[] enums = new CountTableType[]
-                {CountTableType.AIRPORT_OUTIN, CountTableType.AIRPORT_TERMINAL, CountTableType.AIRPORT_AIRELINETYPE, CountTableType.AIRPORT_BAGTYPE, CountTableType.AIRPORT_ERRBAG,
-                        CountTableType.COMPANY_OUTIN, CountTableType.COMPANY_AIRELINETYPE, CountTableType.COMPANY_BAGTYPE, CountTableType.COMPANY_ERRBAG};
+                {CountTableType.AIRPORT_OUT, CountTableType.AIRPORT_IN,
+                        CountTableType.COMPANY_OUT, CountTableType.COMPANY_IN};
         for (int i = 0; i < enums.length; i++) {
             CountTableType table = enums[i];
             taskMapper.createNewTable(table.code(), table.value());
