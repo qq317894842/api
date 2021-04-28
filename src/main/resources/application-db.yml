@@ -5,12 +5,14 @@
 #    password: 123456
 #    url: jdbc:mysql://39.108.5.84:3306/jeecg-boot?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
 #    driver-class-name: com.mysql.cj.jdbc.Driver
+
 spring:
   datasource:
     username: sndev
     password: V$d3F6KZ_@5
     url: jdbc:mysql://rm-bp1k480j48325576ogo.mysql.rds.aliyuncs.com:35166/baggagetrack_poc?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
     driver-class-name: com.mysql.jdbc.Driver
+
 
 ###################################### MYCAT ##############
 #spring:
@@ -19,3 +21,10 @@ spring:
 #    password: V$d3F6KZ_@5
 #    url: jdbc:mysql://8.136.106.14:8066/baggagetrackschema?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
 #    driver-class-name: com.mysql.jdbc.Driver
+
+#spring:
+#  datasource:
+#    username: cq
+#    password: 123456
+#    url: jdbc:sqlserver://10.101.1.11:1435;DatabaseName=CKG
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

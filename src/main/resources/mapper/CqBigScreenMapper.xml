@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.CqBigScreenMapper">
+
+    <resultMap id="BaseResultMap" type="com.entity.dto.BaggageLineData">
+        <result column="countType" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+    <resultMap id="CompanyMap" type="com.entity.dto.BaggageLineData">
+        <result column="company" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+    <resultMap id="PointMap" type="com.entity.dto.BaggageLineData">
+        <result column="point" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+    <resultMap id="PeakMap" type="com.entity.dto.BaggageLineData">
+        <result column="peak" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+    <resultMap id="collectMap" type="com.entity.dto.BaggageLineData">
+        <result column="tableName" jdbcType="VARCHAR" property="type" />
+    </resultMap>
+
+
+
+    <select id="countByCompany" resultMap="CompanyMap">
+      <if test="company==null">
+          SELECT count,time,company FROM dw_company_year  WHERE  company in
+          (
+            SELECT TOP 5 company FROM (
+              SELECT sum(count) cnt,company FROM  dw_company_year dcy  group by company
+              ) t1 ORDER BY  t1.cnt DESC
+          )
+      </if>
+      <if test="company!=null">
+          SELECT count,time,company FROM dw_company_month
+          where company = #{company} and left(time,4) = #{time}
+      </if>
+
+    </select>
+    <select id="countByIn" resultType="com.entity.dto.BaggageLineData">
+      <if test="time==null">
+          select  *  from dw_in_year
+      </if>
+      <if test="time!=null">
+        select  *  from dw_in_month where left(time,4) = #{time}
+      </if>
+    </select>
+    <select id="countByOut" resultType="com.entity.dto.BaggageLineData">
+        <if test="time==null">
+            select  *  from dw_out_year
+        </if>
+        <if test="time!=null">
+            select  *  from dw_out_month where left(time,4) = #{time}
+        </if>
+    </select>
+    <select id="countByTransfer" resultType="com.entity.dto.BaggageLineData">
+        SELECT count(1) count, FLDT  time FROM (
+          SELECT CONVERT(varchar(7),FLDT,111) FLDT,BTN   from R_ReconBag rr(NOLOCK) WHERE  rr.DEAP != 'CKG' AND  rr.ORAP !='CKG'
+          AND  CREATETIME BETWEEN  CONVERT(varchar(4),GETDATE() ,111)  and  GETDATE()
+        ) temp  group by FLDT
+    </select>
+    <select id="countByPeak" resultMap="PeakMap">
+        <if test="time==null">
+            select * from dw_peak_year
+        </if>
+        <if test="time!=null">
+            select * from dw_peak_month where left(time,4) = #{time}
+        </if>
+    </select>
+
+    <select id="countByCollect" resultMap="collectMap">
+        <if test="time==null">
+            select * from dw_collect_year
+        </if>
+        <if test="time!=null">
+            select * from dw_collect_month where left(time,4) = #{time}
+        </if>
+    </select>
+    <select id="countByEff" resultType="com.entity.dto.EffectDto">
+        select * from dw_node_eff where node = #{point}
+    </select>
+
+
+
+
+</mapper>

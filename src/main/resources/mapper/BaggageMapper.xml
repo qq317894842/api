@@ -390,7 +390,7 @@
             from
             baggage bg
             where bg.CreatedTime between #{beginTime} and #{endTime}
-            GROUP BY bg.AbnormalCode,timeACT_RE_DEPLOYMENT
+            GROUP BY bg.AbnormalCode,time
         </if>
     </select>
     <select id="countExBySource" resultType="com.entity.dto.BaggageLineData">
