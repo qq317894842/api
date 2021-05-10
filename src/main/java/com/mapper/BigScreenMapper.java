@@ -26,4 +26,8 @@ public interface BigScreenMapper {
 
     List<BaggageLineData> countByPeak();
 
+    List<BaggageLineData> countByIn(String time);
+
+    List<BaggageLineData> countByOut(String time);
+
 }

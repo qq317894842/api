@@ -59,4 +59,14 @@ public class BigScreenServiceImpl implements BigScreenService {
     public List<BaggageLineData> countByPeak() {
         return mapper.countByPeak();
     }
+
+    @Override
+    public List<BaggageLineData> countByIn(String time) {
+        return mapper.countByIn(time);
+    }
+
+    @Override
+    public List<BaggageLineData> countByOut(String time) {
+        return mapper.countByOut(time);
+    }
 }

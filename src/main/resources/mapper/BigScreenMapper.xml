@@ -102,4 +102,50 @@
         ) temp
         ORDER BY temp.count  desc LIMIT 5
     </select>
+
+    <select id="countByIn" resultType="com.entity.dto.BaggageLineData">
+        <if test="time==null">
+            SELECT count(DISTINCT bg.TagID) count ,left(bg.FlightNo,2) countType,
+            DATE_FORMAT(bg.FlightDate,'%Y') time
+            from baggage  bg
+            WHERE
+            bg.SourceID != 'L' and
+            bg.IsDeleted != 1
+            GROUP BY countType,time
+        </if>
+        <if test="time!=null">
+            SELECT count(DISTINCT bg.TagID) count ,left(bg.FlightNo,2) countType,
+            DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+            from baggage  bg
+            WHERE
+            bg.SourceID != 'L' and
+            bg.FlightDate
+            BETWEEN #{time} AND now()
+            AND bg.IsDeleted != 1
+            GROUP BY countType,time
+        </if>
+    </select>
+    <select id="countByOut" resultType="com.entity.dto.BaggageLineData">
+        <if test="time==null">
+            SELECT count(DISTINCT bg.TagID) count ,left(bg.FlightNo,2) countType,
+            DATE_FORMAT(bg.FlightDate,'%Y') time
+            from baggage  bg
+            WHERE
+            bg.SourceID = 'L' and
+            bg.IsDeleted != 1
+            GROUP BY countType,time
+        </if>
+        <if test="time!=null">
+            SELECT count(DISTINCT bg.TagID) count ,left(bg.FlightNo,2) countType,
+            DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+            from baggage  bg
+            WHERE
+            bg.SourceID = 'L' and
+            bg.FlightDate
+            BETWEEN #{time} AND now()
+            AND bg.IsDeleted != 1
+            GROUP BY countType,time
+        </if>
+
+    </select>
 </mapper>

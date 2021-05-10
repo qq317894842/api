@@ -1,11 +1,9 @@
 package com.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.constant.ResultCode;
 import com.entity.ResultPojo;
-import com.entity.dto.AirPortLineData;
-import com.entity.dto.BaggageLineData;
-import com.entity.dto.CompanyLineData;
-import com.entity.dto.QueryParam;
+import com.entity.dto.*;
 import com.service.BigScreenService;
 import com.utils.ResultUtil;
 import io.swagger.annotations.Api;
@@ -34,6 +32,20 @@ public class BigScreenController {
     public ResultPojo countByCompany(){
         List<BaggageLineData> dataList = bigScreenService.countByCompany();
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+
+    @ApiOperation("统计进港、离港行李量")
+    @CrossOrigin
+    @PostMapping("/countByOutIn")
+    public ResultPojo countByOutIn(@RequestBody(required = false) TimeDto param){
+        List<BaggageLineData> dataInList = bigScreenService.countByIn(param==null?null:param.getTime());
+        List<BaggageLineData> dataOutList = bigScreenService.countByOut(param==null?null:param.getTime());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("in",dataInList);
+        jsonObject.put("out",dataOutList);
+//        jsonObject.put("transfer",dataTransferList);
+        return  ResultUtil.mix(ResultCode.SUCCESS, jsonObject);
     }
 
     @ApiOperation("航司-行李来源统计(L离港,T中转,R/X 进港 9")
