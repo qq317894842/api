@@ -53,6 +53,7 @@
     </select>
 
     <select id="countTopFiveAirPort" resultMap="BaseResultMap">
+      <if test="time==null or time==''">
         SELECT count(DISTINCT bg.TagID) count,bg.SourceAirport countType,
                DATE_FORMAT(bg.FlightDate,'%Y-%m') time
         from baggage  bg
@@ -62,11 +63,19 @@
         <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
             #{airport}
         </foreach>
-            AND
-            bg.FlightDate
-            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
-            AND bg.IsDeleted != 1
         GROUP BY countType,time
+      </if>
+      <if test="time!=null and time!=''">
+          SELECT count(DISTINCT bg.TagID) count,bg.SourceAirport countType,
+          DATE_FORMAT(bg.FlightDate,'%Y-%m-%d') time
+          from baggage  bg
+          WHERE left (bg.FlightDate,7) = #{time}
+          AND bg.IsDeleted != 1 AND SourceAirport IN
+          <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
+              #{airport}
+          </foreach>
+          GROUP BY countType,time
+      </if>
     </select>
     <select id="countTopFiveBaggageType" resultMap="airPortResultMap">
         SELECT count(DISTINCT bg.TagID) count,bg.SpecialBaggageType countType,bg.SourceAirport airport,DATE_FORMAT(bg.FlightDate,'%Y-%m') time
@@ -147,5 +156,48 @@
             GROUP BY countType,time
         </if>
 
+    </select>
+    <select id="getTopFiveCompany" resultType="java.lang.String">
+        SELECT temp.company FROM(
+            SELECT count(DISTINCT bg.TagID) count,left(bg.FlightNo,2) company
+            from baggage  bg  GROUP BY company
+        ) temp
+        ORDER BY temp.count  desc LIMIT 5
+    </select>
+    <select id="countTopFiveCompany" resultMap="BaseResultMap">
+        <if test="time==null or time==''">
+            SELECT count(DISTINCT bg.TagID) count,left(bg.FlightNo,2) countType,
+                   DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+            from baggage  bg
+            WHERE bg.FlightDate
+                BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+                AND bg.IsDeleted != 1 AND left(bg.FlightNo,2) IN
+                <foreach collection="list" item="company" index="index" open="(" close=")" separator=",">
+                    #{company}
+                </foreach>
+            GROUP BY countType,time
+        </if>
+        <if test="time!=null and time!=''">
+            SELECT count(DISTINCT bg.TagID) count,left(bg.FlightNo,2) countType,
+            DATE_FORMAT(bg.FlightDate,'%Y-%m-%d') time
+            from baggage  bg
+            WHERE left (bg.FlightDate,7) = #{time}
+            AND bg.IsDeleted != 1 AND left(bg.FlightNo,2) IN
+            <foreach collection="list" item="company" index="index" open="(" close=")" separator=",">
+                #{company}
+            </foreach>
+            GROUP BY countType,time
+        </if>
+    </select>
+    <select id="countTopFiveCompanyBaggageType" resultMap="companyResultMap">
+        SELECT count(DISTINCT bg.TagID) count,bg.SpecialBaggageType countType,left(bg.FlightNo,2) company,DATE_FORMAT(bg.FlightDate,'%Y-%m') time
+        from baggage  bg
+        WHERE bg.FlightDate
+            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            AND bg.IsDeleted != 1 AND left(bg.FlightNo,2)  in
+        <foreach collection="list" item="company" index="index" open="(" close=")" separator=",">
+            #{company}
+        </foreach>
+        GROUP BY countType,company,time
     </select>
 </mapper>

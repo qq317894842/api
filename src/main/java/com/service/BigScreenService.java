@@ -1,9 +1,6 @@
 package com.service;
 
-import com.entity.dto.AirPortLineData;
-import com.entity.dto.BaggageLineData;
-import com.entity.dto.CompanyLineData;
-import com.entity.dto.TimeDto;
+import com.entity.dto.*;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public interface BigScreenService {
 
     List<CompanyLineData> countByBaggageType();
 
-    List<BaggageLineData> countTopFiveAirPort();
+    List<BaggageLineData> countTopFiveAirPort(TimeDto time);
 
     List<AirPortLineData> countTopFiveBaggageType();
 
@@ -31,4 +28,8 @@ public interface BigScreenService {
     List<BaggageLineData> countByIn(String time);
 
     List<BaggageLineData> countByOut(String time);
+
+    List<BaggageLineData> countTopFiveCompany(TimeDto timeDto);
+
+    List<AirPortLineData> countTopFiveCompanyBaggageType();
 }

@@ -18,7 +18,7 @@ import java.util.List;
  * @Date: 2021/4/20 14:25
  * @Description:
  */
-@Api(tags = "大屏数据接口")
+@Api(tags = "大屏数据接口(机场)")
 @RequestMapping("/bigScreen")
 @RestController
 public class BigScreenController {
@@ -35,7 +35,7 @@ public class BigScreenController {
     }
 
 
-    @ApiOperation("统计进港、离港行李量")
+    @ApiOperation("统计进港、离港行李量 9")
     @CrossOrigin
     @PostMapping("/countByOutIn")
     public ResultPojo countByOutIn(@RequestBody(required = false) TimeDto param){
@@ -84,8 +84,8 @@ public class BigScreenController {
     @ApiOperation("统计前5机场的行李量 1")
     @CrossOrigin
     @PostMapping("/countTopFiveAirPort")
-    public ResultPojo countTopFiveAirPort(){
-        List<BaggageLineData> dataList = bigScreenService.countTopFiveAirPort();
+    public ResultPojo countTopFiveAirPort(@RequestBody(required = false) TimeDto timeDto){
+        List<BaggageLineData> dataList = bigScreenService.countTopFiveAirPort(timeDto);
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 

@@ -20,7 +20,7 @@ public interface BigScreenMapper {
 
     List<String> getTopFiveAirPort();
 
-    List<BaggageLineData> countTopFiveAirPort(@Param(value = "list") List<String> airPortList);
+    List<BaggageLineData> countTopFiveAirPort(@Param(value = "list") List<String> airPortList,@Param(value = "time")String time);
 
     List<AirPortLineData> countTopFiveBaggageType(@Param(value = "list") List<String> airPortList);
 
@@ -30,4 +30,9 @@ public interface BigScreenMapper {
 
     List<BaggageLineData> countByOut(String time);
 
+    List<String> getTopFiveCompany();
+
+    List<BaggageLineData> countTopFiveCompany(@Param(value = "list")List<String> fiveCompanyList,@Param(value = "time")String time);
+
+    List<AirPortLineData> countTopFiveCompanyBaggageType(@Param(value = "list") List<String> fiveCompanyList);
 }

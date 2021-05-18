@@ -1,11 +1,8 @@
 package com.service.impl;
 
-import com.entity.dto.AirPortLineData;
-import com.entity.dto.BaggageLineData;
-import com.entity.dto.CompanyLineData;
+import com.entity.dto.*;
 import com.mapper.BigScreenMapper;
 import com.service.BigScreenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,9 +41,9 @@ public class BigScreenServiceImpl implements BigScreenService {
     }
 
     @Override
-    public List<BaggageLineData> countTopFiveAirPort() {
+    public List<BaggageLineData> countTopFiveAirPort(TimeDto timeDto) {
         List<String> airPortList = mapper.getTopFiveAirPort();
-        return mapper.countTopFiveAirPort(airPortList);
+        return mapper.countTopFiveAirPort(airPortList,timeDto==null?null:timeDto.getTime());
     }
 
     @Override
@@ -68,5 +65,17 @@ public class BigScreenServiceImpl implements BigScreenService {
     @Override
     public List<BaggageLineData> countByOut(String time) {
         return mapper.countByOut(time);
+    }
+
+    @Override
+    public List<BaggageLineData> countTopFiveCompany(TimeDto timeDto) {
+        List<String> fiveCompanyList = mapper.getTopFiveCompany();
+        return mapper.countTopFiveCompany(fiveCompanyList,timeDto==null?null:timeDto.getTime());
+    }
+
+    @Override
+    public List<AirPortLineData> countTopFiveCompanyBaggageType() {
+        List<String> fiveCompanyList = mapper.getTopFiveCompany();
+        return mapper.countTopFiveCompanyBaggageType(fiveCompanyList);
     }
 }
