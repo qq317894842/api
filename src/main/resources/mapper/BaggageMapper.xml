@@ -209,7 +209,7 @@
         </if>
     </select>
     <select id="countErrByBaggage" resultType="com.entity.dto.BaggageLineData">
-        select bg.SpecialBaggageType type,count(bg.id) value,
+        select bg.SpecialBaggageType type,count(bg.id) count,
         <include refid="bgFlightDate" />
         from baggage bg
         where (bg.AbnormalCode!=''

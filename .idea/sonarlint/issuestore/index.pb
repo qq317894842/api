@@ -133,3 +133,11 @@ Y
 )src/main/java/com/entity/dto/TimeDto.java,7\a\7ae6f013a98446991f1ff3851c84f6ec3200181c
 M
 src/main/resources/Dockerfile,c\5\c534a9be65a4304783bf94ca2616d97259260e69
+_
+/src/main/resources/mapper/CqBigScreenMapper.xml,b\4\b4497c78a81f949ff1c7e55d246e2df071e1b655
+V
+&src/main/java/com/utils/FileUtils.java,9\c\9cd9d17338bc4ff0313e2334863b1638808c94cf
+f
+6src/main/java/com/controller/BigScreenController2.java,6\9\698b055f43f1a7bf2c1c3252861656810e66002c
+[
++src/main/java/com/constant/TrancePoint.java,4\4\44d56dbe91de406fe3502d26dc0778dd173c3921

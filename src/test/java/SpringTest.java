@@ -17,6 +17,7 @@ import java.time.LocalDate;
  * @Date: 2021/4/1 17:27
  * @Description:
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ApiServerApplication.class})
 public class SpringTest {

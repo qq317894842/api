@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class BigScreenController {
     @Resource
     private BigScreenService bigScreenService;
 
-    @ApiOperation("航司-按月统计行李量 9")
+    @ApiOperation("航司-按月统计行李量 X9")
     @CrossOrigin
     @PostMapping("/countByCompany")
     public ResultPojo countByCompany(){
@@ -48,7 +49,7 @@ public class BigScreenController {
         return  ResultUtil.mix(ResultCode.SUCCESS, jsonObject);
     }
 
-    @ApiOperation("航司-行李来源统计(L离港,T中转,R/X 进港 9")
+    @ApiOperation("航司-行李来源统计(L离港,T中转,R/X 进港 X9")
     @CrossOrigin
     @PostMapping("/countBySourceId")
     public ResultPojo countBySourceId(){
@@ -56,7 +57,7 @@ public class BigScreenController {
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
-    @ApiOperation("航线来源统计(国际/国内) 9")
+    @ApiOperation("航线来源统计(国际/国内) X9")
     @CrossOrigin
     @PostMapping("/countByAireLineType")
     public ResultPojo countByAireLineType(){
@@ -69,14 +70,6 @@ public class BigScreenController {
     @PostMapping("/countByBaggageType")
     public ResultPojo countByBaggageType(){
         List<CompanyLineData> dataList = bigScreenService.countByBaggageType();
-        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
-    }
-
-    @ApiOperation("高峰时段行李量统计 5")
-    @CrossOrigin
-    @PostMapping("/countByPeak")
-    public ResultPojo countByPeak(){
-        List<BaggageLineData> dataList = bigScreenService.countByPeak();
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
 
@@ -96,4 +89,46 @@ public class BigScreenController {
         List<AirPortLineData> dataList = bigScreenService.countTopFiveBaggageType();
         return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
     }
+
+
+    @ApiOperation("业务高峰分布 4")
+    @CrossOrigin
+    @PostMapping("/countByPeak")
+    public ResultPojo countByPeak(){
+        List<BaggageLineData> dataList = bigScreenService.countByPeak();
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("数据采集 5")
+    @CrossOrigin
+    @PostMapping("/countByCollect")
+    public ResultPojo  countByCollect(@RequestBody(required = false) TimeDto param){
+        List<BaggageLineData> dataList = bigScreenService.countByCollect(param==null?null:param.getTime());
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("统计节点效率")
+    @CrossOrigin
+    @PostMapping("/countByEff")
+    public ResultPojo  countByEff(){
+        List<EffectDto> dataList = bigScreenService.countByEff();
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("异常类别行李统计 机场-异常行李")
+    @CrossOrigin
+    @PostMapping("/countByErr")
+    public ResultPojo  countByErr(){
+        List<BaggageLineData> dataList = bigScreenService.countByErr();
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
+    @ApiOperation("前五名机场的异常类别行李统计 航司-异常行李")
+    @CrossOrigin
+    @PostMapping("/countTopFiveAirPortErr")
+    public ResultPojo  countTopFiveAirPortErr(){
+        List<AirPortLineData> dataList = bigScreenService.countTopFiveAirPortErr();
+        return  ResultUtil.mix(ResultCode.SUCCESS, dataList);
+    }
+
 }

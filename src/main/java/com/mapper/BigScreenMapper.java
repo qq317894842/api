@@ -3,6 +3,7 @@ package com.mapper;
 import com.entity.dto.AirPortLineData;
 import com.entity.dto.BaggageLineData;
 import com.entity.dto.CompanyLineData;
+import com.entity.dto.EffectDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,4 +36,12 @@ public interface BigScreenMapper {
     List<BaggageLineData> countTopFiveCompany(@Param(value = "list")List<String> fiveCompanyList,@Param(value = "time")String time);
 
     List<AirPortLineData> countTopFiveCompanyBaggageType(@Param(value = "list") List<String> fiveCompanyList);
+
+    List<BaggageLineData> countByCollect(@Param(value = "time")String time);
+
+    List<BaggageLineData> countByErr();
+
+    List<AirPortLineData> countTopFiveAirPortErr(@Param(value = "list") List<String> airPortList);
+
+    EffectDto countByEff(@Param(value = "point")String point, @Param(value = "nextPoint") String nextPoint);
 }

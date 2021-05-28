@@ -86,22 +86,17 @@
         <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
             #{airport}
         </foreach>
-            AND
-            bg.FlightDate
-            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
-            AND bg.IsDeleted != 1
         GROUP BY countType,airport,time
     </select>
     <select id="countByPeak" resultMap="BaseResultMap">
         SELECT count(DISTINCT bt.TagID) count,
-               bt.BaggageTraceConfigID countType,
-               DATE_FORMAT(bt.OperateTime,'%Y-%m-%d %H:%i') time
+               DATE_FORMAT(bt.OperateTime,'%H') countType,
+               DATE_FORMAT(bt.OperateTime,'%Y-%m') time
         FROM baggagetrace bt
         WHERE bt.BaggageTraceConfigID IN
             (SELECT ID from baggagetraceconfig btc where btc.NodeName = '安检')
             AND
-            bt.OperateTime
-            BETWEEN DATE_FORMAT(now(),'%Y') AND now()
+            DATE_FORMAT(bt.OperateTime,'%Y')=DATE_FORMAT(now(),'%Y')
         GROUP BY countType,time
     </select>
     <select id="getTopFiveAirPort" resultType="java.lang.String">
@@ -199,5 +194,55 @@
             #{company}
         </foreach>
         GROUP BY countType,company,time
+    </select>
+    <select id="countByCollect" resultType="com.entity.dto.BaggageLineData">
+        <if test="time==null or time==''">
+            select count(1) as count,'baggage' as type, DATE_FORMAT(bg.CreatedTime ,'%Y') time from baggage bg group by time
+            union
+            select count(1) as count,'baggagetrace' as type, DATE_FORMAT(bt.CreatedTime ,'%Y') time from baggagetrace bt group by time
+            union
+            select count(1) as count,'flightbaggagetrace' as type, DATE_FORMAT(f.CreatedTime ,'%Y') time from flight f group by time;
+        </if>
+        <if test="time!=null and time!=''">
+            select count(1) as count,'baggage' as type, DATE_FORMAT(bg.CreatedTime ,'%Y-%m') time from baggage bg
+            where DATE_FORMAT(bg.CreatedTime ,'%Y')=#{time}  group by time
+            union
+            select count(1) as count,'baggagetrace' as type, DATE_FORMAT(bt.CreatedTime ,'%Y-%m') time from baggagetrace bt
+            where DATE_FORMAT(bt.CreatedTime ,'%Y')=#{time} group by time
+            union
+            select count(1) as count,'flightbaggagetrace' as type, DATE_FORMAT(f.CreatedTime ,'%Y-%m') time from flight f
+            where DATE_FORMAT(f.CreatedTime ,'%Y')=#{time} group by time;
+        </if>
+    </select>
+    <select id="countByErr" resultType="com.entity.dto.BaggageLineData">
+        select bg.AbnormalCode type,count(bg.id) count, DATE_FORMAT(bg.FlightDate,'%Y-%m') time from baggage bg
+        where (bg.AbnormalCode!='' and bg.AbnormalCode is not null)
+        group by type, time
+    </select>
+    <select id="countTopFiveAirPortErr" resultType="com.entity.dto.AirPortLineData">
+        select bg.AbnormalCode type,count(bg.id) count ,bg.SourceAirport airport, DATE_FORMAT(bg.FlightDate,'%Y-%m') time from baggage bg
+        where (bg.AbnormalCode!='' and bg.AbnormalCode is not null)
+        AND SourceAirport IN
+        <foreach collection="list" item="airport" index="index" open="(" close=")" separator=",">
+            #{airport}
+        </foreach>
+        group by type, time,airport
+    </select>
+    <select id="countByEff" resultType="com.entity.dto.EffectDto">
+        select
+            #{point} as node,
+            sum(TIMESTAMPDIFF(minute,t1.CreatedTime,t2.CreatedTime))/count(1) avgTime,
+            max(TIMESTAMPDIFF(minute,t1.CreatedTime,t2.CreatedTime)) maxTime,
+            min(TIMESTAMPDIFF(minute,t1.CreatedTime,t2.CreatedTime)) minTime  from
+            (select BaggageID,CreatedTime from baggagetrace bt
+                inner join baggagetraceconfig btc on bt.BaggageTraceConfigID =  btc.ID
+                 where year(createdtime)=year(now()) and btc.NodeName = #{point}) t1
+                inner join
+                (
+                    select BaggageID,CreatedTime from baggagetrace bt
+                          inner join baggagetraceconfig btc on bt.BaggageTraceConfigID =  btc.ID
+                    where year(createdtime)=year(now()) and btc.NodeName = #{nextPoint}
+                )t2
+                ON  t1.BaggageID = t2.BaggageID
     </select>
 </mapper>

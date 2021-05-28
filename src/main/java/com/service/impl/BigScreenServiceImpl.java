@@ -1,11 +1,13 @@
 package com.service.impl;
 
+import com.constant.TrancePoint;
 import com.entity.dto.*;
 import com.mapper.BigScreenMapper;
 import com.service.BigScreenService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,5 +79,39 @@ public class BigScreenServiceImpl implements BigScreenService {
     public List<AirPortLineData> countTopFiveCompanyBaggageType() {
         List<String> fiveCompanyList = mapper.getTopFiveCompany();
         return mapper.countTopFiveCompanyBaggageType(fiveCompanyList);
+    }
+
+    @Override
+    public List<BaggageLineData> countByCollect(String time) {
+        return mapper.countByCollect(time);
+    }
+
+    @Override
+    public List<BaggageLineData> countByErr() {
+        return mapper.countByErr();
+    }
+
+    @Override
+    public List<AirPortLineData> countTopFiveAirPortErr() {
+        List<String> airPortList = mapper.getTopFiveAirPort();
+        return mapper.countTopFiveAirPortErr(airPortList);
+    }
+
+    @Override
+    public List<EffectDto> countByEff() {
+        EffectDto zhiji = mapper.countByEff(TrancePoint.ZHIJI, TrancePoint.ANJIAN);
+        EffectDto anjian = mapper.countByEff(TrancePoint.ANJIAN,TrancePoint.FENJIAN);
+        EffectDto fenjian =  mapper.countByEff(TrancePoint.FENJIAN,TrancePoint.ZHUANGCHE);
+        EffectDto zhuangche = mapper.countByEff(TrancePoint.ZHUANGCHE,TrancePoint.ZHUANGJI);
+        EffectDto zhuangji = mapper.countByEff(TrancePoint.ZHUANGJI,TrancePoint.XIECHE);
+        EffectDto xieche = mapper.countByEff(TrancePoint.XIECHE,TrancePoint.TIQU);
+        List<EffectDto> effectDtos = new ArrayList<>();
+        effectDtos.add(zhiji);
+        effectDtos.add(anjian);
+        effectDtos.add(fenjian);
+        effectDtos.add(zhuangche);
+        effectDtos.add(zhuangji);
+        effectDtos.add(xieche);
+        return effectDtos;
     }
 }
