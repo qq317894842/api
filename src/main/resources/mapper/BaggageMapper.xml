@@ -92,8 +92,7 @@
         <if test="type==0">
             SELECT count(bt.BaggageID) as count, bt.OperatorID as type,
             <include refid="btOperateTime"/>
-            from baggagetrace bt LEFT JOIN baggagetraceconfig btf
-            on bt.BaggageTraceConfigID=btf.id
+            from baggagetrace bt
             where bt.OperateTime between #{beginTime} and #{endTime}
             GROUP BY bt.OperatorID,time
         </if>
@@ -287,7 +286,7 @@
         <if test="type==0">
             SELECT SUM(TIMESTAMPDIFF(Hour,bgt.BeginTime,bgt.EndTime)) sum,bgt.OperatorID type
             from baggagetrace bgt
-            WHERE bgt.BeginTime BETWEEN #{beginTime} and #{endTime}
+            WHERE bgt.OperateTime BETWEEN #{beginTime} and #{endTime}
             GROUP BY type
         </if>
         <if test="type==1">
@@ -296,7 +295,7 @@
             on bgt.BaggageTraceConfigID=btf.id
             LEFT JOIN resource re
             on re.BaggageTraceConfigID=btf.id
-            WHERE bgt.BeginTime BETWEEN #{beginTime} and #{endTime}
+            WHERE bgt.OperateTime BETWEEN #{beginTime} and #{endTime}
             GROUP BY re.`No`
         </if>
     </select>
